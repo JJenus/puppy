@@ -21,8 +21,11 @@ class LoginFilter implements FilterInterface
 	 *
 	 * @return mixed
 	 */
+	 
+	 use \Myth\Auth\AuthTrait;
 	public function before(RequestInterface $request, $arguments=null)
 	{
+	  $this->setupAuthClasses();
 		if (! function_exists('logged_in'))
 		{
 			helper('auth');
@@ -40,8 +43,8 @@ class LoginFilter implements FilterInterface
 		}
 
 		// if no user is logged in then send to the login form
-		$authenticate = Services::authentication();
-		if (! $authenticate->check())
+		
+		if (! $this->authenticate->check())
 		{
 			session()->set('redirect_url', current_url());
 			return redirect()->to(base_url('login'));
