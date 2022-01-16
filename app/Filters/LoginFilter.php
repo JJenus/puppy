@@ -21,8 +21,8 @@ class LoginFilter implements FilterInterface
 	 *
 	 * @return mixed
 	 */
+	 use  \Myth\Auth\AuthTrait;
 	 
-	 use \Myth\Auth\AuthTrait;
 	public function before(RequestInterface $request, $arguments=null)
 	{
 	  $this->setupAuthClasses();
