@@ -28,7 +28,7 @@ class Setup extends BaseController
 	}
 	
 	private function saveProcess(){
-	  file_put_contents(base_url("writable/setup.json"), json_encode($this->setup, JSON_PRETTY_PRINT));
+	  #file_put_contents(base_url("writable/setup.json"), json_encode($this->setup, JSON_PRETTY_PRINT));
 	}
 	
 	
