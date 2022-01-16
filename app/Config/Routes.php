@@ -48,8 +48,9 @@ $routes->group("app", ['filter' => 'login:admin,manager,receptionist,ironer,wash
   });
 });
 
-$routes->group("staffs", function($route){
+$routes->group("staffs", ['filter' => 'login'], function($route){
   $route->get("", "Staffs::index");
+  $route->post("update", "Staffs::update");
   $route->get("(:segment)", "Staffs::staff/$1");
   $route->get("(:num)/report", "Staffs::report/$1");
 });
@@ -64,6 +65,7 @@ $routes->group("customers", ["filter"=>"login"], function($route){
   $route->get("/", "CustomerController::index");
   $route->post("/", "CustomerController::create");
   $route->get("range", "CustomerController::inRange");
+  $route->get("lastmonths", "CustomerController::lastMonths");
   $route->get("(:segment)", "CustomerController::getCustomer/$1");
   $route->post("(:segment)/update", "CustomerController::update/$1");
   $route->get("(:segment)/delete", "CustomerController::delete/$1");
@@ -75,6 +77,21 @@ $routes->match(
   "search/(:segment)", 
   "Search::search/$1"
 );
+
+$routes->group("issues", ['filter' => 'login'], function($route){
+  $route->get("/", "Issues::index");
+  $route->post("/", "Issues::create", ['filter' => 'permission:app.manage,app.clothes.manage,app.accounts.manage']);
+  $route->post("update", "Issues::update", ['filter' => 'permission:app.manage,app.clothes.manage,app.accounts.manage']);
+  $route->get("stats", "Issues::statistics");
+  $route->get("(:segment)/delete", "Issues::delete", ['filter' => 'role:admin']);
+});
+
+$routes->group("accounts", ['filter' => 'login'], function($route){
+  $route->get("/", "Accounts::index");
+  $route->post("/", "Accounts::create", ['filter' => 'permission:app.manage,app.accounts.manage']);
+  $route->get("stats", "Accounts::statistics");
+  $route->get("(:segment)/delete", "Accounts::delete", ['filter' => 'role:admin']);
+});
 
 $routes->group("expenses", ['filter' => 'login'], function($route){
   $route->get("/", "Expenses::index");

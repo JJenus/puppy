@@ -7,8 +7,11 @@ use App\Models\UserModel;
 
 class Staffs extends BaseController
 {
+  use \Myth\Auth\AuthTrait;
+  
   public function __construct(){
 		$this->users = new UserModel();
+		$this->setupAuthClasses();
   }
   
 	public function index()
@@ -71,6 +74,53 @@ class Staffs extends BaseController
 	  }
     return $this->response->setJson($result);
 	}
+	
+	public function update($id){
+	  $update = $this->request->getPost("update");
+		if ($update === "info") {
+		  $data = $this->request->getPost($this->users->allowedFields);
+		}else 
+		  $data = $this->request->getPost((model("EmployeeModel"))->allowedFields);
+	 
+	  $id = $this->authenticate->user()->id;
+	  
+	  $required = [];
+	  foreach ($data as $key => $value) {
+	    if($value !== null)
+	      $required[$key] = $value;
+	  }
+	  
+	  if ($update === "info") {
+	    if (!$this->users->update($id, $required)) {
+  	    return $this->response->setJson([
+  	       "status" => false, 
+  	       "errors" => $this->users->errors(), 
+  	     ]);
+  	  }
+  	  return $this->response->setJson([
+	       "status" => "ok", 
+	       "data" => $this->users->find($id), 
+	     ]);
+	  } else {
+	    $model = model("EmployeeModel");
+	    
+	    if (!$model->where("id", $id)->update($required)) {
+  	    return $this->response->setJson([
+  	       "status" => false, 
+  	       "errors" => $model->errors(), 
+  	     ]);
+  	  }
+  	  
+  	  return $this->response->setJson([
+	       "status" => "ok", 
+	       "data" => $model->find($id), 
+	     ]);
+	  }
+	  
+	  
+	  
+	}
+	                                                                                                                                              
 	
 	public function comparable($reports):int{
 	  if (isset($reports["clothes"])) {

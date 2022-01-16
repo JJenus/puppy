@@ -38,8 +38,8 @@
 										<li class="breadcrumb-item">
 											<a href="<?=base_url("app/main")?>" class="text-muted text-hover-primary">App</a>
 										</li>
-										<li class="breadcrumb-item">dashboard</li>
-										<li class="breadcrumb-item text-dark">staffs</li>
+										<li class="breadcrumb-item">Dashboard</li>
+										<li class="breadcrumb-item text-dark">Staffs</li>
 									</ul>
 									<!--end::Breadcrumb-->
 								</div>

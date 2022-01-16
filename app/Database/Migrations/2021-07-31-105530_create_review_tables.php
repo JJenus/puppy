@@ -123,6 +123,7 @@ class CreateAppTables extends Migration
             'id'               => ['type' => 'int', 'constraint' => 11, 'unsigned' => true, 'auto_increment' => true],
             'customer_id'        => ['type' => 'int', 'constraint' => 11, 'null' => true],
             'clothe_id'        => ['type' => 'int', 'constraint' => 11, 'null' => true],
+            'title'      => ['type' => 'text',],
             'description'      => ['type' => 'text',],
             'resolved_by'       => ['type' => 'int', 'constraint' => 11, 'null' => true],
             'created_by'       => ['type' => 'int', 'constraint' => 11, 'null' => true],

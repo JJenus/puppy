@@ -55,6 +55,7 @@ class CustomerController extends BaseController
 		  $clothes[$key]["customer_id"] = $this->authenticate->user()->id;
 		  $clothes[$key]["status"] = "pending";
 		  for ($i = 0; $i < $clothe["quantity"]; $i++) {
+		    $clothes[$key]["actions"] = "wash, iron";
 		     if(!$clothesModel->save($clothes[$key])){
 		       return $this->response->setJson(
     		     [
@@ -170,7 +171,7 @@ class CustomerController extends BaseController
     return $randDate->format('Y-m-d H:i:s');
 	} 
 	
-	public function inRange(){
+	public function lastMonths(){
 
 	    $sdate = $this->customDate(date("Y-m-1 00:00:00"), "-4", "month");
 	    
@@ -203,7 +204,7 @@ class CustomerController extends BaseController
 	  return $this->response->setJson($res);
 	} 
 	
-	/*public function inRange(){
+	public function inRange(){
 	  $offset = $this->request->getVar("offset") ?? 0;
 	  $limit = $this->request->getVar("limit")  ?? 50;
 	  
@@ -233,7 +234,7 @@ class CustomerController extends BaseController
 	  }
 	  
 	  return $this->response->setJson($res);
-	}*/
+	}
 	
 }
                                                                                              

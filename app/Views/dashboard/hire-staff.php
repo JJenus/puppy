@@ -234,7 +234,7 @@
 														<div class="w-100">
 															<!--begin::Heading-->
 															<div class="pb-10 pb-lg-15">
-																<h3 class="fw-bolder text-dark display-6">Address Details</h3>
+																<h3 class="fw-bolder text-dark display-6">Contact Address</h3>
 																<div class="text-muted fw-bold fs-3">Have a Different Address ? 
 																<a href="#" class="text-primary fw-bolder">Add Address</a></div>
 															</div>

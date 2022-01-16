@@ -86,7 +86,7 @@ class CustomerModel extends Model
 	
 	public function getCustomersInRange($startDate, $endDate, $limit, $offset){
 	  $customers = $this->where("created_at >= ", $startDate)
-	               ->andWhere("created_at <=", $endDate)
+	               ->where("created_at <=", $endDate)
 	               ->orderBy('id', 'ASC')
 	               ->findAll($limit, $offset);
 	  

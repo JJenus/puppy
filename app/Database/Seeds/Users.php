@@ -37,7 +37,6 @@ class Users extends Seeder
 	
 	private function generateUser():Array{
      $username = "";
-    
      do{
        $username = static::faker()->username;
        $result = model("UserModel")

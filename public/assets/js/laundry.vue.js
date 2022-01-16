@@ -155,11 +155,8 @@ let app = new Vue({
         url: `http://localhost:8080/app/user`, 
         method: "GET",
         success: (res)=>{
-          //console.log(res);
           if (res.status) {
             this.user = res.data;
-            //console.log("success"); 
-            notify("success", "Done");
           }
         },
         error: (err)=>{

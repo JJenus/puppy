@@ -96,12 +96,7 @@
 													<div class="symbol symbol-50px me-5">
 														<span class="symbol-label bg-white bg-opacity-10">
 															<!--begin::Svg Icon | path: icons/stockholm/Communication/Group-chat.svg-->
-															<span class="svg-icon svg-icon-2x svg-icon-white">
-																<svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-																	<path d="M16,15.6315789 L16,12 C16,10.3431458 14.6568542,9 13,9 L6.16183229,9 L6.16183229,5.52631579 C6.16183229,4.13107011 7.29290239,3 8.68814808,3 L20.4776218,3 C21.8728674,3 23.0039375,4.13107011 23.0039375,5.52631579 L23.0039375,13.1052632 L23.0206157,17.786793 C23.0215995,18.0629336 22.7985408,18.2875874 22.5224001,18.2885711 C22.3891754,18.2890457 22.2612702,18.2363324 22.1670655,18.1421277 L19.6565168,15.6315789 L16,15.6315789 Z" fill="#000000" />
-																	<path d="M1.98505595,18 L1.98505595,13 C1.98505595,11.8954305 2.88048645,11 3.98505595,11 L11.9850559,11 C13.0896254,11 13.9850559,11.8954305 13.9850559,13 L13.9850559,18 C13.9850559,19.1045695 13.0896254,20 11.9850559,20 L4.10078614,20 L2.85693427,21.1905292 C2.65744295,21.3814685 2.34093638,21.3745358 2.14999706,21.1750444 C2.06092565,21.0819836 2.01120804,20.958136 2.01120804,20.8293182 L2.01120804,18.32426 C1.99400175,18.2187196 1.98505595,18.1104045 1.98505595,18 Z M6.5,14 C6.22385763,14 6,14.2238576 6,14.5 C6,14.7761424 6.22385763,15 6.5,15 L11.5,15 C11.7761424,15 12,14.7761424 12,14.5 C12,14.2238576 11.7761424,14 11.5,14 L6.5,14 Z M9.5,16 C9.22385763,16 9,16.2238576 9,16.5 C9,16.7761424 9.22385763,17 9.5,17 L11.5,17 C11.7761424,17 12,16.7761424 12,16.5 C12,16.2238576 11.7761424,16 11.5,16 L9.5,16 Z" fill="#000000" opacity="0.3" />
-																</svg>
-															</span>
+															<i class="bi bi-exclamation-circle-fill text-white fs-3x"></i>
 															<!--end::Svg Icon-->
 														</span>
 													</div>
@@ -111,6 +106,9 @@
 														<a href="#" class="fs-4 text-white text-hover-primary fw-bolder">Issues</a>
 														<div class="fs-7 text-white opacity-75 fw-bold mt-1">
 														  <select onchange="onChange('issues', this.value)" class="form-select form-select-solid form-select-sm" data-control="select2" data-placeholder="Today" data-hide-search="true">
+                      					<option class="capitalize fs-9 "  value="all">
+                      					   All time
+                      					</option>
                       					<option class="capitalize fs-9 " v-for="(range, index) in selectRange"  :value="index">
                       					   {{range}}
                       					</option>
@@ -123,14 +121,18 @@
 												
 												<!--begin::Info-->
 												<div class="fw-bolder text-white pt-7">
-													<span class="me-3 mb-3 badge badge-secondary"><i class="fas fw-bolder fa-user me-2 "></i>2,756 Customers</span>
-													<span class="me-3 mb-3 badge badge-secondary"><i class="fas me-2 fw-bolder fa-warning text-primary"></i>30 Issues</span>
-													<span class="me-3 mb-3 badge badge-secondary"><i class="bi fw-bolder me-2 bi-check2 text-primary"></i> 22 Resolved</span>
+													<span class="me-3 mb-3 badge badge-secondary"><i class="bi bi-exclamation-circle text-danger fw-bolder me-2 "></i> {{issues.issues}} Issues</span>
+													<span class="me-3 mb-3 badge badge-secondary"><i class="bi bi-bootstrap-reboot me-2 fw-bolder text-primary"></i>{{issues.resolved}} Resolved</span>
+													<span class="me-3 mb-3 badge badge-secondary"><i class="fw-bolder me-2 text-warning">
+													  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-activity" viewBox="0 0 16 16">
+                              <path fill-rule="evenodd" d="M6 2a.5.5 0 0 1 .47.33L10 12.036l1.53-4.208A.5.5 0 0 1 12 7.5h3.5a.5.5 0 0 1 0 1h-3.15l-1.88 5.17a.5.5 0 0 1-.94 0L6 3.964 4.47 8.171A.5.5 0 0 1 4 8.5H.5a.5.5 0 0 1 0-1h3.15l1.88-5.17A.5.5 0 0 1 6 2Z"/>
+                            </svg> 
+													</i> {{issues.unresolved}} Open</span>
 												</div>
 												<!--end::Info-->
 												<!--begin::Progress-->
 												<div class="progress h-6px bg-white bg-opacity-10 mt-7">
-													<div class="progress-bar bg-white" role="progressbar" style="width: 80%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+													<div class="progress-bar bg-white" role="progressbar" :style="'width:'+issueResolvedRate+'%;'" :aria-valuenow="((issues.resolved/issues.issues)*100)" aria-valuemin="0" aria-valuemax="100"></div>
 												</div>
 												<!--end::Progress-->
 											</div>
@@ -164,9 +166,12 @@
 													<!--end::Symbol-->
 													<!--begin::Title-->
 													<div>
-														<a href="#" class="fs-4 text-gray-800 text-hover-primary fw-bolder">Revenue</a>
+														<a href="#" class="fs-4 text-gray-800 text-hover-primary fw-bolder">Financial Statement</a>
 														<div class="fs-7 text-muted fw-bold mt-1">
-														  <select onchange="onChange('washed', this.value)" class="form-select form-select-solid form-select-sm" data-control="select2" data-placeholder="Today" data-hide-search="true">
+														  <select onchange="onChange('revenue', this.value)" class="form-select form-select-solid form-select-sm" data-control="select2" data-placeholder="Today" data-hide-search="true">
+                      					<option class="capitalize fs-9 "  value="all">
+                      					   All time
+                      					</option>
                       					<option class="capitalize fs-9 " v-for="(range, index) in selectRange"  :value="index">
                       					   {{range}}
                       					</option>
@@ -178,14 +183,15 @@
 												<!--end::Section-->
 												<!--begin::Info-->
 												<div class="fw-bolder text-muted pt-7">
-												  <span class="me-3 mb-3 badge badge-light">Income: $80,801</span>
-												  <span class="me-3 mb-3 badge badge-light">Expenditure: $20,000</span>
-													<span class="me-3 mb-3 badge badge-light">Profit: $60,001</span>
+												  <span class="me-3 mb-3 badge badge-light">Revenue: {{accounts.revenue}}</span>
+												  <span class="me-3 mb-3 badge badge-light">Expenditure: {{accounts.expenses}}</span>
+													<span v-if="accounts.profit" class="me-3 mb-3 badge badge-primary">Net Profit: {{accounts.profit}}</span>
+													<span v-else class="me-3 mb-3 badge badge-danger">Net Loss: {{accounts.loss}}</span>
 												</div>
 												<!--end::Info-->
 												<!--begin::Progress-->
 												<div class="progress h-6px bg-light-warning mt-7">
-													<div class="progress-bar bg-warning" role="progressbar" style="width: 60%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+													<div class="progress-bar bg-warning" role="progressbar" :style="'width:'+ accountsProfitRate +'%;'" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
 												</div>
 												<!--end::Progress-->
 											</div>
@@ -203,8 +209,8 @@
 											<!--begin::Header-->
 											<div class="card-header align-items-center border-0 mt-5">
 												<h3 class="card-title align-items-start flex-column">
-													<span class="fw-bolder text-dark fs-3">Revenue Share</span>
-													<span class="text-muted mt-2 fw-bold fs-6">890,344 Clothes</span>
+													<span class="fw-bolder text-dark fs-3">Finance Chart</span>
+													<span class="text-muted mt-2 fw-bold fs-6">{{}}</span>
 												</h3>
 												<div class="card-toolbar">
 													<!--begin::Dropdown-->

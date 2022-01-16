@@ -18,7 +18,8 @@ class ClothesModel extends Model
 	protected $allowedFields        = [
 	    "customer_id", "type", 
 	    "status", "washer", "ironer", 
-	    "confirmed_by", "dispensed_by"
+	    "confirmed_by", "dispensed_by", 
+	    "actions"
 	  ];
 
 	// Dates
@@ -33,6 +34,7 @@ class ClothesModel extends Model
 	    "customer_id" => "required|numeric",
 	    "type" => "required|numeric",
 	    "status" => "required", 
+	    "actions" => "required", 
 	  ];
 	  
 	protected $validationMessages   = [];
@@ -44,7 +46,7 @@ class ClothesModel extends Model
 	#protected $beforeUpdate         = ["unMaskId"];
 	protected $afterUpdate          = [];
 	#protected $beforeFind           = ["unMaskId"];
-	protected $afterFind            = ["maskId"];
+	public $afterFind            = ["maskId"];
 	#protected $beforeDelete         = ["unMaskId"];
 	
 	protected function maskId(array $data){

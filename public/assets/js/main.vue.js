@@ -98,7 +98,7 @@ Vue.component("search-card", {
     readyClothes(){
       var count = 0;
       for(let clothe of this.customer.clothes){
-        if (clothe.status === "ready") {
+        if (clothe.status === "ready" || clothe.status === "dispensed" ) {
           count++;
         }
       }
@@ -615,6 +615,7 @@ let app = new Vue({
         method: "POST",
         data: {"limit":limit, "offset":offset, "q":this.inputs.search}, 
         success: (res)=>{
+          console.log(res);
           if (offset == 0) {
             this.customers = [];
           }

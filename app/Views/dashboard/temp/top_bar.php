@@ -20,8 +20,11 @@
 								</button>
 								<!--end::Mega Menu Toggler-->
 								<!--begin::Logo-->
-								<a href="<?=base_url("dashboard")?>">
-									<?= APP_NAME ?>
+								<a href="<?=base_url("app/dashboard")?>">
+									<strong>
+								    <h1 class="m-0 fs-2x  fw-bolder"><?= APP_NAME ?></h1>
+								  </strong>
+									<img class="d-none" alt="Logo" src="<?= base_url() ?>/assets/media/logos/logo-default.svg" class="h-30px" />
 								</a>
 								<!--end::Logo-->
 							</div>

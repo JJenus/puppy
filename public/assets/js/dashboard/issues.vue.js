@@ -1,6 +1,6 @@
 
 Vue.component("issue-card", {
-  props: ["issue"], 
+  props: ["issue","user"], 
   data(){
     return {
       Good:6, 
@@ -11,8 +11,41 @@ Vue.component("issue-card", {
   }, 
   methods:{
     resolve(){
-      this.issue.resolved_at = new Date("Y-m-d");
-    } 
+      $("#btn-resolve-"+this.issue.id).attr("data-kt-indicator", "on");
+      $date = (moment()).format("YYYY-MM-DD HH:mm:ss");
+      $.ajax({
+        url: base_url+"/issues/update", 
+        method: "POST",
+        data: {
+          "id":this.issue.id, 
+          "clothe_id":this.issue.clothe_id, 
+          "title":this.issue.title, 
+          "description":this.issue.description, 
+          "resolved_at": $date,
+          "resolved_by": this.user.id
+        }, 
+        success: (res)=>{
+          if (res.status) {
+            this.issue.resolved_by= res.data.resolved_by;
+            this.issue.resolved_at = res.data.resolved_at;
+          } else {
+            console.error("errors");
+            console.log(res.errors);
+          }
+        },
+        error: (err)=>{
+          console.log(err);
+        } 
+      }).always(()=>{
+        $("#btn-resolve-"+this.issue.id).attr("data-kt-indicator", null);
+      }); 
+    }, 
+    date($date){
+      if(!$date)
+        return "00:00";
+      let date = (moment($date, 'YYYY-MM-DD HH:mm:ss')).format("hh:mm a, MMM DD yyyy");
+      return date;
+    }
   }, 
   template: `
     <div class="col-md-6 col-lg-4">
@@ -24,11 +57,11 @@ Vue.component("issue-card", {
 				<div class="d-flex align-items-center">
 					<!--begin::Info-->
 					<div class="d-flex flex-column flex-grow-1">
-						<a href="#" class="text-gray-800 text-hover-primary mb-1 fs-6 fw-bolder">
+						<a href="#" class="text-gray-800 text-hover-primary mb-1 fs-5 fw-bolder">
 						  {{issue.customerName}} 
 						</a>
 						<span class="text-muted fw-bold">Clothe id: {{issue.clothe_id}}</span>
-						<span class="text-muted fw-bold">Date: {{issue.date}}</span>
+						<span class="text-muted fw-bold">Date: {{date(issue.created_at)}}</span>
 					</div>
 					<!--end::Info-->
 				</div>
@@ -36,6 +69,7 @@ Vue.component("issue-card", {
 				<!--begin::Body-->
 				<div class="pt-5">
 					<!--begin::Text-->
+					<h1 class="fs-6 my-3">{{issue.title}}</h1>
 					<p class="text-gray-800 fs-6 fw-normal mb-2">
 					  {{issue.description}}
 					</p>
@@ -58,8 +92,13 @@ Vue.component("issue-card", {
 						</div>
 					</div>
 					<div v-else class="d-flex mt-3 mb-1 align-items-center ps-4 pe-4">
-						<button @click="resolve()" class="btn btn-light-primary btn-sm">
-						  Resolve
+						<button :id="'btn-resolve-'+issue.id" @click="resolve()" class="btn btn-light-primary btn-sm">
+						  <span class="indicator-label">
+                  Resolve
+              </span>
+              <span class="indicator-progress">
+                  Please wait... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+              </span> 
 						</button>
 					</div>
 					<div class="d-flex align-items-center ps-4 pe-4">
@@ -82,48 +121,26 @@ var App = new Vue({
   data: {
     inputs: {
       search:"Bea", 
-    }, 
+    },
+    user: null, 
     search:{
       limit:10,
       result:[],
     }, 
-    issues: [
-      {
-        clothe_id: "jhR",
-        date: "11/07/2021 09:09:45",
-        created_by: "Adam Johnson", 
-        resolved_at: null, 
-        customerName: "Trent Waldorf", 
-        description: "is one of the board members who have been in the Niger Delta region of Nigeria", 
-      }, 
-      {
-        clothe_id: "6grr",
-        created_by: "Cleveland Amanda", 
-        date: "22nd May 2021 5:15 am", 
-        resolved_at: "2020-07-13 13:45:34", 
-        customerName: "Annie Gibson", 
-        description: "the best practices to eliminate vulnerabilities is to make extra work with the error ", 
-      }, 
-      {
-        clothe_id: "5tDr",
-        created_by: "Glenn Bowen", 
-        date: "22nd May 2021 5:15 am",
-        resolved_at: "2021-11-13 14:25:14", 
-        customerName: "James Gosling", 
-        description: "I love Java and the other two points that you have ", 
-      }, 
-    ],
+    issues: [],
   },
   mounted(){
     setTimeout(()=>{
       this.searchDB(0,50);
     }, 10);
+    
+    this.getUser();
   }, 
   methods: {
     searchDB(limit, offset){
       $("#btn-load-more").attr("data-kt-indicator", "on");
       $.ajax({
-        url: "http://localhost:8080/search/issues", 
+        url: base_url+"/search/issues", 
         method: "POST",
         data: {"limit":limit, "offset":offset, "q":this.inputs.search}, 
         success: (res)=>{
@@ -141,5 +158,37 @@ var App = new Vue({
         $("#btn-load-more").attr("data-kt-indicator", null);
       });
     },  
+    loadIssues(){
+      $("#btn-load-more").attr("data-kt-indicator", "on");
+      $.ajax({
+        url: base_url +"/issues", 
+        method: "GET",
+        success: (res)=>{
+          console.log(res);
+          this.issues = res;
+        },
+        error: (err)=>{
+          console.log(err);
+        } 
+      }).always(()=>{
+        $("#btn-load-more").attr("data-kt-indicator", null);
+      });
+    },  
+    getUser(){
+      $.ajax({
+        url: `${base_url}/app/user`, 
+        method: "GET",
+        success: (res)=>{
+          if (res.status) {
+            console.log(res.data)
+            this.user = res.data;
+            this.loadIssues();
+          }
+        },
+        error: (err)=>{
+          console.log(err);
+        } 
+      });
+    }, 
   }
 });

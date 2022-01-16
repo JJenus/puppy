@@ -77,6 +77,17 @@ let VueApp = new Vue({
     revenue: 0,
     expenditure: 0,
     netProfit: 0,
+    issues: {
+      issues: 0,
+      resolved: 0,
+      unresolved: 0,
+   },
+    accounts: {
+      revenue: 0,
+      possible_returns: 0,
+      expenses: 0,
+      profit: 0,
+   },
     staffs: [], 
     topStaffs: {
       "receptionist": [], 
@@ -105,7 +116,28 @@ let VueApp = new Vue({
   computed:{
     profit(){
       return this.revenue - this.expenditure;
-    } 
+    }, 
+    issueResolvedRate(){
+      if (this.issues.issues < 1) 
+        return 0;
+      return ((this.issues.issues.resolved/this.issues.issues)*100);
+    },                                                              
+    accountsProfitRate(){
+      if (this.accounts.profit < 1||this.accounts.loss<1) 
+        return 0;
+      return (( (this.accounts.loss||this.accounts.profit) /this.accounts.revenue)*100);
+    }                                                                
+  }, 
+  mounted(){
+    console.log("set up correctly");
+    this. loadChatData();
+    this.loadStats("all", "today");
+    this.loadIssues("all");
+    this.loadRevenue("all");
+    this.revenueShareWidget();
+    this.getTop("receptionist");
+    this.getTop("drycleaners");
+    this.getStaffs();
   }, 
   methods: {
     usable(reports){
@@ -149,14 +181,12 @@ let VueApp = new Vue({
         //nothing yet
       });
     },
-     
     percentage(val, arr){
       let rate = (val/arr.reduce((pre,sum)=>{
         return pre+sum;
       },0))*100;
       return Math.round(rate, 2)+'%';
     },
-    
     chatWidget(labels, data1, data2, initByDefault=true) {
         var element = document.querySelector("#kt_stats_widget_2_chart_1");
         var height = parseInt(KTUtil.css(element, 'height'));
@@ -272,10 +302,9 @@ let VueApp = new Vue({
            chart.render();
             
     }, 
-    
     loadChatData(){
       $.ajax({
-        url: "http://localhost:8080/customers/range", 
+        url: "http://localhost:8080/customers/lastmonths", 
         method: "GET",
         success: (res)=>{
           console.log(res);
@@ -293,7 +322,6 @@ let VueApp = new Vue({
         } 
       })
     }, 
-    
     loadStats(stat, date_range){
       $.ajax({
         url: "http://localhost:8080/clothes/stats/"+stat, 
@@ -306,6 +334,37 @@ let VueApp = new Vue({
             this.stats[stat] = res[stat];
           }
           this.selectedRange = date_range;
+        },
+        error: (err)=>{
+          console.log(err);
+        } 
+      }).always(()=>{
+        
+      });
+    },
+    loadIssues(date_range){
+      $.ajax({
+        url: base_url+"/issues/stats", 
+        method: "GET",
+        data: {date:date_range}, 
+        success: (res)=>{
+          this.issues = res;
+        },
+        error: (err)=>{
+          console.log(err);
+        } 
+      }).always(()=>{
+        
+      });
+    },
+    loadRevenue(date_range){
+      $.ajax({
+        url: base_url+"/accounts/stats", 
+        method: "GET",
+        data: {date:date_range}, 
+        success: (res)=>{
+          this.accounts = res;
+          console.log(res );
         },
         error: (err)=>{
           console.log(err);
@@ -391,17 +450,14 @@ let VueApp = new Vue({
         var myDoughnut = new Chart(ctx, config);
     }, 
   }, 
-  mounted(){
-    console.log("set up correctly");
-    this. loadChatData();
-    this.loadStats("all", "today");
-    this.revenueShareWidget();
-    this.getTop("receptionist");
-    this.getTop("drycleaners");
-    this.getStaffs();
-  } 
 });
 
 function onChange(stat,value){
-  VueApp.loadStats(stat, value);
+  if(stat === "issues"){
+   VueApp.loadIssues(value);
+  }
+  else if(stat === "revenue"){
+   VueApp.loadRevenue(value);
+  }
+  else VueApp.loadStats(stat, value);
 }

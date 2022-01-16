@@ -69,7 +69,7 @@
 							  </div>
 								<!--begin::Row-->
 								<div class="row p-10 g-0 g-xl-5 g-xxl-8">
-								  <issue-card v-for="issue in issues" :issue="issue"></issue-card>
+								  <issue-card v-for="issue in issues" :user="user" :issue="issue"></issue-card>
 							  </div>
 								<!--end::Row--> 
 							<div v-if="search.result.length === search.limit" class="">

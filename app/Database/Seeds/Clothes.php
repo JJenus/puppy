@@ -324,7 +324,7 @@ class Clothes extends Seeder
     	     ]
   	    );
   	  }else {
-	    $activities
+	      $activities
 	         ->set("$action", date("Y-m-d h:i:s"))
 	         ->set("updated_at", $date)
 	         ->where("clothe_id", $clothe_id)
@@ -335,8 +335,8 @@ class Clothes extends Seeder
 	
 	private function createCustomer($createdBy, $date){
 	  $type = ["admin", "vip", "regular"];
-	  $totalAmount = random_int(200,10000);
-	  $amountPaid = random_int(0, 10000);
+	  $totalAmount = random_int(200,5000);
+	  $amountPaid = random_int(0, 5000);
 	  $balance = $totalAmount - $amountPaid;
 	  $acc_type = $balance > 0 ? "debt":"credit";
 	 

@@ -36,6 +36,10 @@ class Setup extends BaseController
 	  /**
 	   * check response codes for failed cases
 	  */
+	  return $this->response->setJSON($this->startProcess());
+	}
+	
+	public function startProcess(){
 	  $migrate = $this->migrate();
 		if ($migrate) {
 		  $this->setupAuthClasses();
@@ -44,7 +48,7 @@ class Setup extends BaseController
 		      #Give Admin permissions
 		      foreach ($this->setup->permissions as $group) {
   		      if (!$this->authorize->addPermissionToGroup($group->permission, 'admin')) {
-  		        return $this->response->setJSON("Failed to setup admin privileges.");
+  		        return ["Failed to setup admin privileges."];
   		      }
 		      }
 		      $this->authorize->addPermissionToGroup("app.manage", 'manager');
@@ -53,14 +57,13 @@ class Setup extends BaseController
 		      $this->authorize->addPermissionToGroup("app.clothes.dispense", 'receptionist');
 		      $this->authorize->addPermissionToGroup("app.clothes.wash", 'washer');
 		      $this->authorize->addPermissionToGroup("app.clothes.iron", 'ironer');
-		      return $this->response->setJSON("done");
+		      return ["done"];
 		    }
-		    return $this->response->setJSON("Failed to setup user roles.");
+		    return ["Failed to setup user roles."];
 		  }
-	    return $this->response->setJSON("Failed to setup app permissions.");
+	    return ["Failed to setup app permissions."];
 		}
-	  return $this->response->setJSON($migration);
-	}
+	} 
 	
 	public function reInstall(){
 	  # Rollback then
@@ -75,10 +78,9 @@ class Setup extends BaseController
 	  }
 	  
 	  if ($this->rollbackMigrate()) {
-	    $this->install();
-	    $this->response->setJson(["success"]);
+	    return $this->response->setJson($this->startProcess());
 	  }
-	  $this->response->setJson(["failed"]);
+	  return $this->response->setJson(["failed"]);
 	}
 	
 	private function migrate(){

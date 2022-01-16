@@ -195,9 +195,9 @@ class Clothes extends BaseController
 	
 	public function setDates(){
 	  $week =  date("Y-m-d 00:00:00", strtotime('this week', time())) ;
-	  $month = date("Y-m-1 00:00:00", strtotime('this month', time()));
+	  $month = date("Y-m-01 00:00:00");
 	  $yesterday = date("Y-m-d 00:00:00", strtotime('yesterday', time()));
-	  $lastmonth = date("Y-m-1 00:00:00", strtotime('last month', time()));
+	  $lastmonth = date("Y-m-01 00:00:00", strtotime('last month', time()));
 	  $lastweek = date("Y-m-d 00:00:00", strtotime('last week', time())); 
 		
 		$this->range = [
