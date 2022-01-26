@@ -57,8 +57,19 @@ class Search extends BaseController
 	  $limit = $this->request->getVar("limit")  ?? 50;
     
     $clothes = model("ClothesModel");
-	  return $clothes->like("type", $search)
-	        ->orlike("id", $this->getExact($search))
+	  return $clothes
+	        ->select(
+	                "clothes.*, 
+	                clothe_activities.ironed_at AS ironed_at, 
+	                clothe_activities.washed_at AS washed_at, 
+	                clothe_activities.ready_at AS ready_at, 
+	                clothe_activities.dispensed_at AS dispensed_at , 
+	                clothe_types.name AS clotheType"
+	              ) 
+	        ->like("clothes.type", $search)
+	        ->orlike("clothes.id", $this->getExact($search))
+	        ->join('clothe_types', 'clothes.type = clothe_types.id', 'left')
+	        ->join('clothe_activities', 'clothes.id = clothe_activities.clothe_id', 'left')
 	        ->orderBy("id", 'ASC') 
 	        ->findAll($limit, $offset);
 	}

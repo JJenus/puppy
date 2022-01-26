@@ -1,110 +1,89 @@
 var App = new Vue({
   el: "#app", 
   data: {
-    form: {
-      fullname: null, 
-      username: null, 
-      email: null, 
-      gender: null, 
-      role: "receptionist", 
-      password: null, 
-      phone: null, 
-      address: null, 
-      city: null, 
-      bank: null, accountname:null, 
-      accountnumber: null, 
-      photo: 'http://localhost:8080/assets/media/stock/900x600/3.jpg'
-    }, 
+    forms: [1], 
+    categories: [], 
     error: {
       username: null, 
       email: null, 
     }, 
+    staff: null,  
     bgImage: null
   },
   mounted(){
-    this.bgImage = `background-image:url('${this.form.photo}')`; 
-    this.setup();
+    console.log("BTC money");
+    this.loadCategories();
   }, 
   methods: {
-    readURL() {
-      input = $("#kt_form_photo_1")[0];
-        if (input.files && input.files[0]) {
-          var reader = new FileReader();
-          reader.onload = (e)=> {
-            this.bgImage = `background-image:url('${e.target.result}')`;           
-            this.form.photo = e.target.result;
-          };
-          reader.readAsDataURL(input.files[0]);
-        }
+    add(){
+      this.forms.push(1);
     }, 
-    
-    setup(){
-      $("#info").submit((e)=>{
-        e.preventDefault();
-        this.save("info","btn-personal-info");
-      });
-      $("#bank").submit((e)=>{
-        e.preventDefault();
-        this.save("info","btn-bank-info");
-      });
-      $("#contact").submit((e)=>{
-        e.preventDefault();
-        this.save("info","btn-contact-address");
-      });
-    }, 
-    
-    save($source, btn){
-      console.log('Saving...');
-      var form = new FormData($('#'+$source)[0]);
-      console.log(form);
-      $("#"+btn).attr("data-kt-indicator", "on");
-      /*$.ajax({
-        processData: false,
-        contentType: false,
-        url: "http://localhost:8080/user/update", 
+    save(){
+      console.log('Saving... ');
+      
+      $("#cat-form-btn").attr("data-kt-indicator", "on");                    
+      $.ajax({
+        url: base_url+`/clothes/categories/new`, 
         method: "POST",
-        data: form, 
+        data: $("#cat-form").serializeArray(), 
         success: (res)=>{
           console.log(res);
+          if (res.status) {
+            notify("success", "Saved");
+            this.loadCategories();
+          }else {
+            let str = "";
+            for(let error in res.errors)
+              str += res.errors[error] +"\n";
+            notify("error", str);
+          } 
         },
         error: (err)=>{
           console.log(err);
         } 
       }).always(()=>{
-        $("#btn").attr("data-kt-indicator", null);
-      });*/
+        $("#cat-form-btn").attr("data-kt-indicator", null);
+      });
     }, 
-    
-    
-    checkAvailability(login){
-      login == "email"? this.error.email = null : this.error.username = null;
-      if (this.form.username.length > 3) {
-        
-        $("#btn-load-more").attr("data-kt-indicator", "on");
-        $.ajax({
-          url: "http://localhost:8080/app/hire/checkAvailability", 
-          method: "GET",
-          data: {id: ((login=="email") ? this.form.email: this.form.username), field: login}, 
-          success: (res)=>{
-            console.log(res);
-            if (!res.id) {
-              
-              if(login == "email") 
-                this.error.email = res.message ;
-              else 
-                this.error.username = res.message;                  
-            }
-          },
-          error: (err)=>{
-            console.log(err);
+    loadCategories(){
+      $.ajax({
+        url: base_url+"/clothes/categories",
+        method: "GET",
+        success: (res)=>{
+          this.categories = res;
+        },
+        error: (err)=>{
+          console.log(err);
+        } 
+      }).always(()=>{
+        //nothing yet
+      });
+    },
+    update(form, btn){
+      $("#"+btn).attr("data-kt-indicator", "on");
+      let rawData = $("#"+form).serializeArray() ;
+      $.ajax({
+        url: base_url+"/clothes/categories/update",
+        method: "POST",
+        data: rawData, 
+        success: (res)=>{
+          if (res.status) {
+            notify("success", "Saved");
+            this.loadCategories();
+          }else {
+            let str = "";
+            for(let error in res.errors)
+              str += res.errors[error] +"\n";
+            notify("error", str);
           } 
-        }).always(()=>{
-          $("#btn-load-more").attr("data-kt-indicator", null);
-        });
-      }else{
-        login !== "email" ? this.error.username = "username must be more than 3 letters" : "";
-      } 
-      
-    } 
+        },
+        error: (err)=>{
+          console.log(err);
+        } 
+      }).always(()=>{
+        $("#"+btn).attr("data-kt-indicator", null);
+      });
+    },
+    
   }
 });

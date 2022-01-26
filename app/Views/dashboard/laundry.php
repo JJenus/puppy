@@ -317,8 +317,8 @@
 									<customer-comp v-for="(customer, index) in customers" :key="index" :index="index" :customer="customer"></clothe-comp>
 								</div>
 								<!--end::Row-->
-								<?= view("temp/navbar") ?>
 								<!--begin::Modals-->
+								<?= view("temp/navbar") ?>
 								<!--end::Modals-->
 							</div>
 							<!--end::Container-->

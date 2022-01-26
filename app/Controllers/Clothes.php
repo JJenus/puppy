@@ -193,6 +193,51 @@ class Clothes extends BaseController
 	  return $this->response->setJson($res);
 	}
 	
+	public function updateCategory(){
+	  $model = model("ClotheCategories");
+	  $data = $this->request->getPost($model->allowedFields);
+	  $required = [];
+	  foreach ($data as $key => $value) {
+	    if($value !== null)
+	      $required[$key] = $value;
+	  }
+	  $id = $this->request->getPost("id");
+	  
+	  $res =  $model->set($required)
+	          ->where("id", $id)
+	          ->update();
+	  
+	  if (!$res) {
+	    return $this->response->setJson([
+       "status" => false, 
+       "errors" => $model->errors(), 
+      ]); 
+	  }
+	  
+	  return $this->response->setJson([
+       "status" => "ok", 
+       "data" => $model->find($id), 
+    ]);
+	}
+	public function newCategory(){
+	  $model = model("ClotheCategories");
+	  $data = $this->request->getPost("category");
+	  
+	 foreach ($data as $category){
+	    if (!$model->save($category)) {
+	      return $this->response->setJson([
+  	       "status" => false, 
+  	       "errors" => $model->errors(), 
+  	     ]); 
+	    }
+	  } 
+	  
+	  return $this->response->setJson([
+       "status" => "ok", 
+       "data" => $model->find($model->insertID()), 
+    ]);
+	}
+	
 	public function setDates(){
 	  $week =  date("Y-m-d 00:00:00", strtotime('this week', time())) ;
 	  $month = date("Y-m-01 00:00:00");

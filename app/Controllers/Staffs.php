@@ -19,7 +19,11 @@ class Staffs extends BaseController
 	  $top = $this->request->getGet("top");
 	 
 	  $result = $this->users
-	            ->select("users.*, 
+	            ->select("
+	                  users.id, 
+	                  users.name, 
+	                  users.email, 
+	                  users.username, 
 	                  employees.image_url,
 	                  employees.address,
 	                  employees.gender,
@@ -75,6 +79,35 @@ class Staffs extends BaseController
     return $this->response->setJson($result);
 	}
 	
+	public function staff($id){
+	  if ($this->request->getGet("current_user")!==null || intval($id) === 0) {
+	    $id = $this->authenticate->id();
+	  }
+	  $result = $this->getStaff($id);
+    return $this->response->setJson($result);
+	}
+	
+	public function getStaff($id){
+	  $result = $this->users
+	            ->select("
+	                  users.id, 
+	                  users.name,
+	                  users.email, 
+	                  users.username,  
+	                  employees.image_url,
+	                  employees.address,
+	                  employees.gender,
+	                  employees.phone,
+	                  employees.bank,
+	                  employees.account_number,
+	                  employees.account_name,
+	                  employees.city,
+	              ")
+	            ->join('employees', 'employees.user_id = users.id', 'left') 
+	            ->find(intval($id));
+	  return $result;
+	} 
+	
 	public function update($id){
 	  $update = $this->request->getPost("update");
 		if ($update === "info") {
@@ -82,7 +115,7 @@ class Staffs extends BaseController
 		}else 
 		  $data = $this->request->getPost((model("EmployeeModel"))->allowedFields);
 	 
-	  $id = $this->authenticate->user()->id;
+	  //$id = $this->authenticate->user()->id;
 	  
 	  $required = [];
 	  foreach ($data as $key => $value) {
@@ -91,34 +124,26 @@ class Staffs extends BaseController
 	  }
 	  
 	  if ($update === "info") {
-	    if (!$this->users->update($id, $required)) {
+	    $required["id"] = intval($id);
+	    if (!$this->users->save($required)) {
   	    return $this->response->setJson([
   	       "status" => false, 
   	       "errors" => $this->users->errors(), 
   	     ]);
   	  }
-  	  return $this->response->setJson([
-	       "status" => "ok", 
-	       "data" => $this->users->find($id), 
-	     ]);
 	  } else {
 	    $model = model("EmployeeModel");
-	    
-	    if (!$model->where("id", $id)->update($required)) {
+	    if (!$model->set($required)->where("user_id", $id)->update()) {
   	    return $this->response->setJson([
   	       "status" => false, 
   	       "errors" => $model->errors(), 
   	     ]);
   	  }
-  	  
-  	  return $this->response->setJson([
-	       "status" => "ok", 
-	       "data" => $model->find($id), 
-	     ]);
 	  }
-	  
-	  
-	  
+	  return $this->response->setJson([
+       "status" => "ok", 
+       "data" => $this->getStaff($id), 
+    ]);
 	}
 	                                                                                                                                              
 	
@@ -139,12 +164,6 @@ class Staffs extends BaseController
 	    return $reports["customers"];
 	  }
 	  return 0;
-	} 
-	
-	public function staff($id){
-	  $res = $this->users
-	         ->find(intval($id));
-	  return $this->response->setJson($res);
 	} 
 	
 	public function activities(){} 

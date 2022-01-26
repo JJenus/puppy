@@ -23,7 +23,8 @@ class App extends BaseConfig
 	 *
 	 * @var string
 	 */
-	public $baseURL = 'https://jjenus-laundry.herokuapp.com/';
+	
+	public $baseURL = 'https:jjenus-laundry.herokuapp.com';
 
 	/**
 	 * --------------------------------------------------------------------------
@@ -36,7 +37,7 @@ class App extends BaseConfig
 	 *
 	 * @var string
 	 */
-	public $indexPage = 'index.php';
+	public $indexPage = '';
 
 	/**
 	 * --------------------------------------------------------------------------

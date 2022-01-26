@@ -6,7 +6,7 @@
 		<script src="<?= base_url() ?>/assets/plugins/custom/leaflet/leaflet.bundle.js"></script>
 		<script src="<?= base_url() ?>/assets/js/vue.min.js"></script>
 		
-		<script src="<?= base_url("assets/js/dashboard/settings.vue.js") ?>"></script>
+		<script src="<?= base_url("assets/js/dashboard/account.vue.js") ?>"></script>
 		
 		<!-- end::Page Custom Javascript-->
   <?= $this->endSection() ?> 
@@ -62,32 +62,34 @@
 								<div class="card ">
 									<div class="card-body d-flex flex-wrap flex-center">
     								<!--begin::Form-->
-    								<form id="info" submit.prevent="save('info', 'btn-personal-info')" class="form d-flex flex-center">
+    								<form id="info" class="form d-flex flex-center">
+    									<input type="hidden" value="info" name="update">
     									<div class="card-body mw-800px pt-10">
     									  <h5 class="fw-bolder text-dark fs-2">Personal info</h5>
     										<!--begin::Form row-->
     										<div class="row mb-8">
+    											<label class="col-lg-3 col-form-label">Name</label>
+    											<div class="col-lg-9">
+    												<input v-model="form.name" type="text" class="form-control form-control-lg form-control-solid" name="name" placeholder="Jenus Alakere" value="" />           
+    											</div>
+    										</div>
+    										
+    										<div class="row mb-8">
     											<label class="col-lg-3 col-form-label">Username</label>
     											<div class="col-lg-9">
     												<div class="spinner spinner-sm spinner-primary spinner-right">
-    													<input @keyup="checkAvailability('username')" Chri="form.username" type="text" class="form-control form-control-lg form-control-solid" name="username" placeholder="JJenus" value="" />
+    													<input @keyup="checkAvailability('username')" v-model="form.username" type="text" class="form-control form-control-lg form-control-solid" name="username" placeholder="JJenus" value="" />
     													<div v-if="error.username" class="text-danger text-muted">
     													  {{error.username}} 
     													</div>
     												</div>
     											</div>
     										</div>
-    										<div class="row mb-8">
-    											<label class="col-lg-3 col-form-label">Name</label>
-    											<div class="col-lg-9">
-    												<input Chri="form.fullname" type="text" class="form-control form-control-lg form-control-solid" name="name" placeholder="Jenus Alakere" value="" />           
-    											</div>
-    										</div>
     										
     										<div class="row mb-8">
     											<label class="col-lg-3 col-form-label">Email</label>
     											<div class="col-lg-9">
-    												<input @keyup="checkAvailability('email')" Chri="form.email" type="text" class="form-control form-control-lg form-control-solid" name="email" placeholder="JJenus@gmail.com" value="" />
+    												<input @keyup="checkAvailability('email')" v-model="form.email" type="text" class="form-control form-control-lg form-control-solid" name="email" placeholder="JJenus@gmail.com" value="" />
     												<div v-if="error.email" class="text-danger text-muted">
     												  {{error.email}} 
     												</div>           
@@ -112,26 +114,27 @@
     								
     								<!--begin::Contact Address-->
     								<!--begin::Form-->
-    								<form id="contact" submit.prevent="save('contact', 'btn-contact-address')" class="form d-flex flex-center">
+    								<form id="contact"  class="form d-flex flex-center">
+    									<input type="hidden" value="contact" name="update">
     									<div class="card-body mw-800px Pt-10">
     									  <h5 class="fw-bolder text-dark fs-2">Contact Address</h5>
     										<!--begin::Form row-->
     										<div class="row mb-8">
     											<label class="col-lg-3 col-form-label">Address</label>
     											<div class="col-lg-9">
-    												<input Chri="form.address" type="text" class="form-control form-control-lg form-control-solid" name="address" placeholder="" value="Address Line" />
+    												<input v-model="form.address" type="text" class="form-control form-control-lg form-control-solid" name="address" placeholder="" value="Address Line" />
     											</div>
     										</div>
     										<div class="row mb-8">
     											<label class="col-lg-3 col-form-label">City</label>
     											<div class="col-lg-9">
-    												<input Chri="form.city" type="text" class="form-control form-control-lg form-control-solid" name="city" placeholder="" value="Melbourne" />           
+    												<input v-model="form.city" type="text" class="form-control form-control-lg form-control-solid" name="city" placeholder="" value="Melbourne" />           
     											</div>
     										</div>
     										<div class="row mb-8">
     											<label class="col-lg-3 col-form-label">Phone</label>
     											<div class="col-lg-9">
-    												<input Chri="form.phone" type="text" class="form-control form-control-lg form-control-solid" name="phone" placeholder="" />         
+    												<input v-model="form.phone" type="text" class="form-control form-control-lg form-control-solid" name="phone" placeholder="" />         
     											</div>
     										</div>
     										<div align="center">
@@ -150,26 +153,27 @@
     								<!--end::Form-->
     								<!--begin::Banking information-->
     								<!--begin::Form-->
-    								<form id="bank" submit.prevent="save('bank', 'btn-bank-info')"  class="form d-flex flex-center">
+    								<form id="bank"  class="form d-flex flex-center">
+    									<input type="hidden" value="bank" name="update">
     									<div class="card-body mw-800px Pt-10">
     									  <h5 class="fw-bolder text-dark fs-2">Bank details</h5>
     										<!--begin::Form row-->
     										<div class="row mb-8">
     											<label class="col-lg-3 col-form-label">Bank </label>
     											<div class="col-lg-9">
-    												<input Chri="form.bank" type="text" class="form-control form-control-lg form-control-solid" name="bank" placeholder="City bank" />
+    												<input v-model="form.bank" type="text" class="form-control form-control-lg form-control-solid" name="bank" placeholder="City bank" />
     											</div>
     										</div>
     										<div class="row mb-8">
     											<label class="col-lg-3 col-form-label">Account Name </label>
     											<div class="col-lg-9">
-    												<input Chri="form.accountname" type="text" class="form-control form-control-lg form-control-solid" name="accountname" placeholder="Neil Armstrong" />          
+    												<input v-model="form.account_name" type="text" class="form-control form-control-lg form-control-solid" name="account_name" placeholder="Neil Armstrong" />          
     											</div>
     										</div>
     										<div class="row mb-8">
     											<label class="col-lg-3 col-form-label">Account Number </label>
     											<div class="col-lg-9">
-    												<input Chri="form.accountnumber" type="number" class="form-control form-control-lg form-control-solid" name="accountnumber" placeholder="1006478902" />          
+    												<input v-model="form.account_number" type="number" class="form-control form-control-lg form-control-solid" name="account_number" placeholder="1006478902" />          
     											</div>
     										</div>
     										<!--end::Form row-->
@@ -191,6 +195,9 @@
 									</div>
 								</div>
 								<!--end::Profile Account-->
+									<!--begin::Modals-->
+								<?= view("temp/navbar") ?>
+								<!--end::Modals-->
 							</div>
 							<!--end::Container-->
 						</div>

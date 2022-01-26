@@ -1,7 +1,7 @@
 eventBus = new Vue();
 
 Vue.component("clothe", {
-  props: ["clothe"],
+  props: ["clothe", "index", "id"],
   data(){
     return {
       actions:{
@@ -9,12 +9,8 @@ Vue.component("clothe", {
       } 
     };
   }, 
-  mounted(){
-    console.log(this.clothe);
-  }, 
   methods:{
     date($date){
-      console.log ($date)
       //make a DB call for clothe activities
       if (this.clothe.status === "pending" || !$date) {
         return "pending";
@@ -24,9 +20,8 @@ Vue.component("clothe", {
     dispense(){
       $('#clothe-dispense-btn'+this.clothe.id)[0].setAttribute("data-kt-indicator", "on");
       $.ajax({
-        url: `http://localhost:8080/clothes/${this.clothe.id}/dispense`, 
+        url: `${base_url}/clothes/${this.clothe.id}/dispense`, 
         method: "GET",
-        data: {}, 
         success: (res)=>{
           console.log(res);
           if (res.status) {
@@ -34,6 +29,11 @@ Vue.component("clothe", {
             //console.log("success"); 
             notify("success", "Done");
             this.actions.dispensed = true;
+            let data = {
+              clothe: res.data, 
+              index: this.id
+            };
+            eventBus.$emit("recalibrate-dispensed-"+this.index, data);
           }
         },
         error: (err)=>{
@@ -51,7 +51,7 @@ Vue.component("clothe", {
   template: `
     <tr>
       <td>{{clothe.id}}</td>
-      <td>{{clothe.type}}</td>
+      <td>{{clothe.clotheType}}</td>
       <td>{{clothe.status}}</td>
       <td>{{date(clothe.washed_at)}}</td>
       <td>{{date(clothe.ironed_at)}}</td>
@@ -67,6 +67,9 @@ Vue.component("clothe", {
             </span> 
           </button>
         </div>
+        <span v-else class="">
+          <i class="bi fs-3 fw-bolder text-primary bi-check-circle "></i>
+        </span>
       </td>
     </tr>
   `
@@ -104,10 +107,13 @@ Vue.component("search-card", {
       }
       return count;
     }
+  },
+  mounted(){
+    this.calibrate();
   }, 
   methods:{
     paid(){
-      let truthy = Number(this.customer.amount_paid) == Number(this.customer.total_cost) || Number(this.customer.amount_paid) > Number(this.customer.total_cost);
+      let truthy = Number(this.customer.amount_paid) >= Number(this.customer.total_cost);
       return truthy;
     }, 
     date($date){
@@ -120,25 +126,40 @@ Vue.component("search-card", {
       $cash = $cash || "0.00";
       return this.currency+$cash;
     },
-    dispensed(){
-      for(let clothe of this.customer.clothes){
-        if (!clothe.dispensed_at) {
-          return false;
-        }
-      }
-      return true;
+    calibrate(){
+      eventBus.$on("recalibrate-dispensed-"+this.customer.id, (data)=>{
+        console.log("receieved");
+        console.log(data);
+        
+          let $return = true;
+          this.customer.clothes[data.index] = data.clothe;
+          for(let clothe of this.customer.clothes){
+            if (clothe.dispensed_at === null) {
+              $return = false;
+              break;
+            }
+          } 
+          if($return) {
+            console.log("calibrating...");
+            this.dispense();
+          } 
+      }); 
     }, 
+    
     dispense(){
+      if (!this.paid) {
+        notify("error", "Payment must be completed before dispensing");
+        return false;
+      }
       $("#modal-dispense-btn"+this.customer.id)[0].setAttribute("data-kt-indicator", "on");
       $.ajax({
-        url: `http://localhost:8080/customers/${this.customer.id}/dispense`, 
+        url: `${base_url}/customers/${this.customer.id}/dispense`, 
         method: "GET",
         data: {id: this.customer.id}, 
         success: (res)=>{
-          console.log(res);
+            console.log(res); 
           if (res.status) {
             this.customer = res.data;
-            //console.log("success"); 
             notify("success", "Done");
           }
         },
@@ -154,11 +175,11 @@ Vue.component("search-card", {
       $("#modal-makepayment-btn"+this.customer.id)[0].setAttribute("data-kt-indicator", "on");
       //this.inputs.amount_paid = Number(this.inputs.amount_paid) +Number(this.customer.amount_paid) ;
       $.ajax({
-        url: `http://localhost:8080/customers/${this.customer.id}/update`, 
+        url: `${base_url}/customers/${this.customer.id}/update`, 
         method: "POST",
         data: this.inputs,
         success: (res)=>{
-          console.log(res);
+          //console.log(res);
           if (res.status) {
             notify("success", "Saved"); 
             this.customer = res.data;
@@ -183,11 +204,8 @@ Vue.component("search-card", {
                     <div class="d-flex justify-content-between flex-column" >
                       <h5 class="modal-title fs-2x">{{customer.name}}</h5>
                       <div class="" >
-                        <span v-if="!dispensed()"  class="badge badge-lg badge-light-danger">
-            					    Not dispensed
-            				    </span>
-                        <span v-else  class="badge badge-lg badge-light-success">
-            					    Dispensed
+                        <span :class="getStatusFlag"  class="badge badge-lg ">
+            					    {{customer.status}}
             				    </span>
                       </div>
                     </div>
@@ -246,7 +264,6 @@ Vue.component("search-card", {
                                 {{cost}}
                               </span>
                             </div>
-                            
                           </div>
                         </div>
                       </div>
@@ -350,10 +367,10 @@ Vue.component("search-card", {
                                 </tr>
                             </thead>
                             <tbody>
-                                <clothe v-for="clothe in customer.clothes" :clothe="clothe"></clothe>
+                                <clothe v-for="(clothe, cl_index) in customer.clothes" :id="cl_index" :index="customer.id" :clothe="clothe"></clothe>
                             </tbody>
                             <tfoot>
-                              <tr class="fw-bold fs-6 text-gray-800 border-bottom border-gray-200">
+                              <tr class="fw-bold d-none fs-6 text-gray-800 border-bottom border-gray-200">
                                     <th>id</th>
                                     <th>type</th>
                                     <th>status</th>
@@ -415,52 +432,16 @@ Vue.component("clotheform", {
       category: "undefined", 
       quantity: 1, 
       cost: 0, 
-      categories:[
-        {
-          id: 1,
-          name:"cardigan",
-          cost: 500
-        },
-        {
-          id: 2,
-          name:"singlet", 
-          cost: 100
-        },
-        {
-          id: 3,
-          name:"boxer",
-          cost: 150
-        },
-        {
-          id: 4,
-          name: "trouser", 
-          cost: 200
-        },
-        {
-          id: 5,
-          name: "short", 
-          cost: 200
-        },
-        {
-          id: 6,
-          name: "polo", 
-          cost: 200
-        },
-        {
-          id: 7,
-          name: "T-shirt", 
-          cost: 200
-        },
-     ] 
+      categories:[] 
     };
   }, 
-  computed:{
-    
+  mounted() {
+    this.loadCategories();
   },
   
   methods:{
     calCost(eve){
-      console.log(eve)
+      //console.log(eve)
       if(this.category==="undefined") {
        console.log("called")
        return 0;
@@ -474,7 +455,21 @@ Vue.component("clotheform", {
         cost: this.cost
       };
       eventBus.$emit("clothe_cost", data);
-    }
+    }, 
+    loadCategories(){
+      $.ajax({
+        url: base_url+"/clothes/categories", 
+        method: "GET",
+        success: (res)=>{
+          console.log("loaded categories ");
+          //console.log(res);
+          this.categories = res
+        },
+        error: (err)=>{
+          console.log(err);
+        } 
+      })
+    } 
   }, 
   
   template: `
@@ -517,9 +512,7 @@ let app = new Vue({
   mounted(){
     this.loadExpenses();
     this.getTodaysCustomers();
-    setTimeout(()=> {
-      this.searchDB(20,10);
-    }, 5);
+      this.searchDB(20,0);
     eventBus.$on("clothe_cost",(data)=>{
       this.createClothesForm[data.index].cost = data.cost;
       this.calCost();
@@ -559,13 +552,13 @@ let app = new Vue({
     
     loadExpenses(){
       $.ajax({
-        url: "http://localhost:8080/expenses/range", 
+        url: base_url+"/expenses/range", 
         method: "GET",
         data: {range:"today"}, 
         success: (res)=>{
-          console.log("loaded");
-          console.log(res);
-          this.expenses = res
+          //console.log("loaded");
+          //console.log(res);
+          this.expenses = res;
         },
         error: (err)=>{
           console.log(err);
@@ -585,11 +578,11 @@ let app = new Vue({
       $("#create-customer-form-btn").attr("data-kt-indicator", "on");
       $("#create-customer-form-btn").attr("disabled", "disabled");
       $.ajax({
-        url: "http://localhost:8080/customers", 
+        url: base_url+"/customers", 
         method: "POST",
         data: form.serializeArray(), 
         success: (res)=>{
-          console.log(res);
+          //console.log(res);
           if (res.status) {
             notify("success", "Saved");
             this. activitiesToday.push(res.data);
@@ -609,13 +602,13 @@ let app = new Vue({
     },
     
     searchDB(limit, offset){
-      
+      $("#form-search-btn").attr("data-kt-indicator", "on");
       $.ajax({
-        url: "http://localhost:8080/search/customers", 
+        url: base_url+"/search/customers", 
         method: "POST",
         data: {"limit":limit, "offset":offset, "q":this.inputs.search}, 
         success: (res)=>{
-          console.log(res);
+          //console.log(res);
           if (offset == 0) {
             this.customers = [];
           }
@@ -626,18 +619,18 @@ let app = new Vue({
           console.log(err);
         } 
       }).always(()=>{
-        $("#btn-product").attr("data-kt-indicator", null);
+        $("#form-search-btn").attr("data-kt-indicator", null);
       });
             
     }, 
     
     getTodaysCustomers(){
       $.ajax({
-        url: "http://localhost:8080/customers/range", 
+        url: base_url+"/customers/range", 
         method: "GET",
         data: {range:"today"}, 
         success: (res)=>{
-          console.log(res);
+          //console.log(res);
           this.activitiesToday = res;
         },
         error: (err)=>{
@@ -656,11 +649,11 @@ let app = new Vue({
       
       $("#create-expenses-form-btn")[0].setAttribute("data-kt-indicator", "on");
       $.ajax({
-        url: "http://localhost:8080/expenses", 
+        url: base_url+"/expenses", 
         method: "POST",
         data: form.serializeArray(), 
         success: (res)=>{
-          console.log(res);
+          //console.log(res);
           if (res.status) {
             notify("success", res.message); 
             setTimeout(function() {

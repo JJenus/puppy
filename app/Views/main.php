@@ -90,9 +90,9 @@
 								<!--end::Info-->
 								<!--begin::Nav-->
 								<div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
-									<a href="./category/food" class="btn btn-active-accent fw-bolder">Food</a>
-									<a href="./category/snacks" class="btn btn-active-accent fw-bolder ms-3">Snacks</a>
-									<a href="./category/items" class="btn btn-active-accent active fw-bolder ms-3">Items</a>
+									<a href="<?=base_url("app/main")?>" class="btn btn-active-accent fw-bolder active ms-3">Main</a>
+									<a href="<?=base_url("app/laundry")?>" class="btn btn-active-accent fw-bolder">Laundry</a>
+									<a href="<?=base_url("app/dashboard")?>" class="btn btn-active-accent fw-bolder ms-3">Dashboard</a>
 								</div>
 								<!--end::Nav-->
 							</div>
@@ -109,21 +109,24 @@
 										<div class="card mb-12">
 											<div class="card-body card-rounded p-0 d-flex bg-light-primary">
 												<div class="d-flex flex-column flex-lg-row-auto p-10 p-md-20">
-													<h1 class="fw-bolder text-dark">Search for IDs or name</h1>
-													<div class="fs-3 mb-8">ID search is exact while name is relative</div>
+													<h1 class="fw-bolder text-dark">Search for customers IDs or name</h1>
+													<div class="fs-3 mb-8">ID search is exact while name search is relative</div>
 													<!--begin::Form-->
 													<form @submit.prevent="searchDB(search.limit, 0)" class="d-flex flex-center py-2 px-6 bg-white rounded">
-														<button type="submit" class="btn btn-sm btn-active-accent">
-														<!--begin::Svg Icon | path: icons/stockholm/General/Search.svg-->
-														<span class="svg-icon svg-icon-1 svg-icon-primary">
-															<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-																<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-																	<rect x="0" y="0" width="24" height="24" />
-																	<path d="M14.2928932,16.7071068 C13.9023689,16.3165825 13.9023689,15.6834175 14.2928932,15.2928932 C14.6834175,14.9023689 15.3165825,14.9023689 15.7071068,15.2928932 L19.7071068,19.2928932 C20.0976311,19.6834175 20.0976311,20.3165825 19.7071068,20.7071068 C19.3165825,21.0976311 18.6834175,21.0976311 18.2928932,20.7071068 L14.2928932,16.7071068 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" />
-																	<path d="M11,16 C13.7614237,16 16,13.7614237 16,11 C16,8.23857625 13.7614237,6 11,6 C8.23857625,6 6,8.23857625 6,11 C6,13.7614237 8.23857625,16 11,16 Z M11,18 C7.13400675,18 4,14.8659932 4,11 C4,7.13400675 7.13400675,4 11,4 C14.8659932,4 18,7.13400675 18,11 C18,14.8659932 14.8659932,18 11,18 Z" fill="#000000" fill-rule="nonzero" />
-																</g>
-															</svg>
-														</span>
+														<button id="form-search-btn" type="submit" class="btn btn-sm btn-active-accent">
+  														<!--begin::Svg Icon | path: icons/stockholm/General/Search.svg-->
+  														<span class="indicator-label svg-icon svg-icon-1 svg-icon-primary">
+  															<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+  																<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+  																	<rect x="0" y="0" width="24" height="24" />
+  																	<path d="M14.2928932,16.7071068 C13.9023689,16.3165825 13.9023689,15.6834175 14.2928932,15.2928932 C14.6834175,14.9023689 15.3165825,14.9023689 15.7071068,15.2928932 L19.7071068,19.2928932 C20.0976311,19.6834175 20.0976311,20.3165825 19.7071068,20.7071068 C19.3165825,21.0976311 18.6834175,21.0976311 18.2928932,20.7071068 L14.2928932,16.7071068 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" />
+  																	<path d="M11,16 C13.7614237,16 16,13.7614237 16,11 C16,8.23857625 13.7614237,6 11,6 C8.23857625,6 6,8.23857625 6,11 C6,13.7614237 8.23857625,16 11,16 Z M11,18 C7.13400675,18 4,14.8659932 4,11 C4,7.13400675 7.13400675,4 11,4 C14.8659932,4 18,7.13400675 18,11 C18,14.8659932 14.8659932,18 11,18 Z" fill="#000000" fill-rule="nonzero" />
+  																</g>
+  															</svg>
+  														</span>
+                              <span class="indicator-progress">
+                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                              </span> 
 														<!--end::Svg Icon-->
 														</button>
 														<input id="search" v-model= "inputs.search" type="text" class="form-control search border-0 fw-bold ps-2 w-xxl-350px" placeholder="Search orders" />

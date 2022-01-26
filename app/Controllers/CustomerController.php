@@ -79,12 +79,15 @@ class CustomerController extends BaseController
 	public function dispense($customer_id){
 	  $customer_id = $this->getId($customer_id);
 	  $clothesModel = model("ClothesModel");
-	  $response = $clothesModel->where("customer_id", $customer_id)
-	                 ->set("dispensed_by", $this->authenticate->user()->id)
-	                 ->set("dispensed_at", date("Y-m-d h:i:s"))
-	                 ->set("status", "dispensed")
-	                 ->update();
-	  if (!$response) {
+	  
+	  if (
+	   !$clothesModel
+       ->set("dispensed_by", $this->authenticate->user()->id)
+       ->set("status", "dispensed")
+       ->where("customer_id", $customer_id)
+       ->where("dispensed_by", null)
+       ->update()
+	   ) {
 	    return $this->request->setJSON($clothesModel->errors());
 	  }
 	 

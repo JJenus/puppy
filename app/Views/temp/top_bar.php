@@ -5,7 +5,7 @@
 							<!--begin::Left-->
 							<div class="d-flex align-items-center">
 								<!--begin::Mega Menu Toggler-->
-  								<button class="btn btn-icon btn-accent me-2 me-lg-6" id="kt_mega_menu_toggle" data-bs-toggle="modal" data-bs-target="#kt_mega_menu_modal">
+  								<button class="btn btn-icon btn-accent me-2 me-lg-6" >
   									<!--begin::Svg Icon | path: icons/stockholm/Text/Article.svg-->
   									<span class="svg-icon svg-icon-1">
   										<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">

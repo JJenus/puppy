@@ -210,7 +210,7 @@
 											<div class="card-header align-items-center border-0 mt-5">
 												<h3 class="card-title align-items-start flex-column">
 													<span class="fw-bolder text-dark fs-3">Finance Chart</span>
-													<span class="text-muted mt-2 fw-bold fs-6">{{}}</span>
+													<span class="text-muted mt-2 fw-bold fs-6"></span>
 												</h3>
 												<div class="card-toolbar">
 													<!--begin::Dropdown-->

@@ -47,7 +47,8 @@ class AuthController extends Controller
 		// is already logged in.
 		if ($this->auth->check())
 		{
-			$redirectURL = session('redirect_url') ?? '/';
+			#$redirectURL = session('redirect_url') ?? '/';
+			$redirectURL = '/';
 			unset($_SESSION['redirect_url']);
 
 			return redirect()->to($redirectURL);
@@ -100,9 +101,10 @@ class AuthController extends Controller
 		$userId = $this->auth->id();
 		$url = ($this->authorize->inGroup("admin", $userId) || $this->authorize->hasPermission("app.manage", $userId) ) ? route_to("app/dashboard"):
 		       ($this->hasPermissions($userId)? route_to("app/main") : route_to("app/laundry"));
-		$redirectURL = session('redirect_url') ?? $url ?? '/';
+		#$redirectURL = session('redirect_url') ?? $url ?? '/';
+		$redirectURL = $url ?? '/';
 		unset($_SESSION['redirect_url']);
-
+		
 		return redirect()->to($redirectURL)->withCookies()->with('message', lang('Auth.loginSuccess'));
 	}
 	

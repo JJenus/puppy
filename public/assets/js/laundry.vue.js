@@ -88,7 +88,7 @@ Vue.component("search-card", {
 						</h3>
 						
 						<div class="d-flex flex-column mb-3 fw-bolder">
-					    <span class="mb-3">Created at: {{date(clothe.create_at)}} </span>
+					    <span class="mb-3">Created at: {{date(clothe.created_at)}} </span>
 					  </div>
 					  
 					  <div class="fs-1 d-flex d-flex-row">
@@ -135,10 +135,9 @@ let app = new Vue({
   },
   
   beforeMount(){
-    setTimeout(()=> {
       this.getUser();
-      this.searchDB(20,10);
-    }, 5);
+      this.searchDB(20,0);
+    
   },
   
   computed:{
@@ -166,12 +165,13 @@ let app = new Vue({
     }, 
     
     searchDB(limit, offset){
+      $("#form-search-btn").attr("data-kt-indicator", "on");
       $.ajax({
         url: "http://localhost:8080/search/clothes", 
         method: "POST",
         data: {"limit":limit, "offset":offset, "q":this.inputs.search}, 
         success: (res)=>{
-          console.log(res);
+          //console.log(res);
           if (offset == 0) {
             this.clothes = [];
           }
@@ -182,7 +182,7 @@ let app = new Vue({
           console.log(err);
         } 
       }).always(()=>{
-        $("#btn-product").attr("data-kt-indicator", null);
+        $("#form-search-btn").attr("data-kt-indicator", null);
       });
             
     }, 

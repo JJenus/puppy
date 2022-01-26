@@ -56,7 +56,8 @@ class CustomerModel extends Model
 	
 	public function getCustomersLike($search, $limit, $offset){
 	  $id = (new Encryptor ())->decode($search);
-	  $customers = $this->like("name", $search)
+	  $customers = $this
+	              ->like("name", $search)
 	              ->orlike("total_cost", $search)
 	              ->orlike("amount_paid", $search)
 	              ->orlike("credit", $search)

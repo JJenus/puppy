@@ -34,15 +34,15 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->group("app", ['filter' => 'login:admin,manager,receptionist,ironer,washer'], function($app){
   $app->addRedirect("/", "app/main");
-  $app->get('main', 'App::index');
+  $app->get('main', 'App::index', ['filter' => 'role:admin,manager,receptionist']);
   $app->get('trial', 'App::trials');
   $app->get('laundry', 'App::laundry');
   $app->get('user', 'App::user');
-  $app->group("hire", function($hire){
+  $app->group("hire", ['filter' => 'role:admin,manager'], function($hire){
     $hire->get('generateId', 'AuthController::generateId');
     $hire->get('checkAvailability', 'AuthController::checkAvailability');
   });
-  $app->group("dashboard", ['filter' => 'login:admin,manager'], function($dashboard){
+  $app->group("dashboard", ['filter' => 'role:admin,manager'], function($dashboard){
     $dashboard->addRedirect("/", "app/dashboard/overview");
     $dashboard->get("(:any)", "App::dashboard/$1");
   });
@@ -50,7 +50,7 @@ $routes->group("app", ['filter' => 'login:admin,manager,receptionist,ironer,wash
 
 $routes->group("staffs", ['filter' => 'login'], function($route){
   $route->get("", "Staffs::index");
-  $route->post("update", "Staffs::update");
+  $route->post("(:num)/update", "Staffs::update/$1");
   $route->get("(:segment)", "Staffs::staff/$1");
   $route->get("(:num)/report", "Staffs::report/$1");
 });
@@ -102,7 +102,11 @@ $routes->group("expenses", ['filter' => 'login'], function($route){
 });
 
 $routes->group("clothes", ['filter' => 'login'], function($route){
-  $route->get("categories", "Clothes::categories");
+  $route->group("categories", function($route){
+    $route->post("new", "Clothes::newCategory");
+    $route->get("", "Clothes::categories");
+    $route->post("update", "Clothes::updateCategory");
+  });
   $route->get("stats/(:segment)", "Clothes::stats/$1");
   $route->get("(:segment)/wash", "Clothes::wash/$1", ["filter"=>"permission:app.clothes.manage,app.clothes.wash"]);
   $route->get("(:segment)/iron", "Clothes::iron/$1", ["filter"=>"permission:app.clothes.manage,app.clothes.iron"]);

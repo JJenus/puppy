@@ -125,9 +125,9 @@ class Setup extends BaseController
 	    
 	  $permissions = $this->setup->permissions;
 	  
-	  if (isset($_SESSION['setup_create_permissions'])) {
+	  /*if (isset($_SESSION['setup_create_permissions'])) {
 	    $permissions = $_SESSION['setup_create_permissions'];
-	  }
+	  }*/
 	  
 	  $errors = 0;
 	  
@@ -149,7 +149,7 @@ class Setup extends BaseController
       $this->saveProcess();
       return true;
     }
-    $_SESSION['setup_create_permissions'] = $permissions;
+    #$_SESSION['setup_create_permissions'] = $permissions;
     return false;
 	}
 	

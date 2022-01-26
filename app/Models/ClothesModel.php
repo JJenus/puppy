@@ -52,7 +52,6 @@ class ClothesModel extends Model
 	protected function maskId(array $data){
     if(gettype($data["data"]) === "array"){
       if (! isset($data['data'][0]->id)) return $data;
-    
       foreach($data["data"] as $key => $value ){
         $data['data'][$key]->id = (new Encryptor())->encode($data['data'][$key]->id);
       }
@@ -74,16 +73,28 @@ class ClothesModel extends Model
 	public function getClothe($id){
 	  return $this->select(
 	                "clothes.*, 
-	                clothe_activities.ironed_at AS ironed_at, clothe_activities.washed_at AS washed_at, clothe_activities.ready_at AS ready_at, clothe_activities.dispensed_at AS dispensed_at , clothe_types.name AS clotheType"
+	                clothe_activities.ironed_at AS ironed_at, 
+	                clothe_activities.washed_at AS washed_at, 
+	                clothe_activities.ready_at AS ready_at, 
+	                clothe_activities.dispensed_at AS dispensed_at , 
+	                clothe_types.name AS clotheType"
 	              )
-                ->join('clothe_types', 'clothes.id = clothe_types.id', 'left')
+                ->join('clothe_types', 'clothes.type = clothe_types.id', 'left')
                 ->join('clothe_activities', 'clothes.id = clothe_activities.clothe_id', 'left')
                 ->find($id);
 	}
 	
 	public function getClothesForCustomer($userId){
-	  $clothes = $this->select('clothes.*,clothe_activities.ironed_at AS ironed_at, clothe_activities.washed_at AS washed_at, clothe_activities.ready_at AS ready_at, clothe_activities.dispensed_at AS dispensed_at , clothe_types.name AS clotheType')
-                ->join('clothe_types', 'clothes.id = clothe_types.id', 'left')
+	  $clothes = $this
+                ->select(
+	                "clothes.*, 
+	                clothe_activities.ironed_at AS ironed_at, 
+	                clothe_activities.washed_at AS washed_at, 
+	                clothe_activities.ready_at AS ready_at, 
+	                clothe_activities.dispensed_at AS dispensed_at , 
+	                clothe_types.name AS clotheType"
+	              )
+                ->join('clothe_types', 'clothes.type = clothe_types.id', 'left')
                 ->join('clothe_activities', 'clothes.id = clothe_activities.clothe_id', 'left')
                 ->where('clothes.customer_id', $userId)
                 ->findAll();
