@@ -53,7 +53,7 @@ class Database extends Config
 		'hostname' => '',
 		'username' => '',
 		'password' => '',
-		'database' => WRITEPATH. 'laundry.sqlite',
+		'database' => WRITEPATH. 'puppy.db',
 		'DBDriver' => 'SQLite3',
 		'DBPrefix' => '',
 		'pConnect' => false,

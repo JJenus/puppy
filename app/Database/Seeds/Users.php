@@ -30,7 +30,7 @@ class Users extends Seeder
   		}else{
   		  $this->saveUser($generatedUser);
   		  $generatedUser["user_id"] = $userModel->insertID();
-  		  (model("EmployeeModel"))->save($generatedUser);
+  		  (model("AddressModel"))->save($generatedUser);
   		} 
   	} 
 	}
@@ -51,7 +51,6 @@ class Users extends Seeder
         $role = $this->setup->groups[
           random_int(1, count($this->setup->groups)-1)
         ]->role;
-        
       } 
       
       $gender = (["male", "female"])[random_int(0,1)];
@@ -65,12 +64,11 @@ class Users extends Seeder
         "email" => static::faker()->email, 
         "phone" => static::faker()->phoneNumber, 
         "password" => static::faker()->word, 
-        "image_url" => static::faker()->imageUrl($width = 640, $height = 480, $category = "human", $randomize = true, $word = null, $gray = false),        
+        "photo" => static::faker()->imageUrl($width = 640, $height = 480, $category = "human", $randomize = true, $word = null, $gray = false),        
         "address" => static::faker()->streetAddress, 
         "city" => static::faker()->city, 
+        "country" => static::faker()->country, 
         "bank" => static::faker()->company, 
-        "account_name" => $name, 
-        "account_number" => static::faker()->bankAccountNumber, 
       ];
       /**
        * TODO:

@@ -30,8 +30,12 @@ class App extends BaseController
     return view("trials", $this->data);     
   }
   
-  public function laundry(){
-    return view($this->config->views["laundry"], $this->data);     
+  public function puppies(){
+    return view("puppies", $this->data);     
+  }
+  public function showPuppy($id){
+    $this->data["puppy_id"] = $id;
+    return view("puppy", $this->data);     
   }
   
   public function user(){

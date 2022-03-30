@@ -29,14 +29,17 @@ $routes->setAutoRoute(true);
  * Route Definitions
  * --------------------------------------------------------------------
  */
+ $routes->resource('puppies', ['websafe' => 1]);
+
  $routes->addRedirect("/", "app/main");
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->group("app", ['filter' => 'login:admin,manager,receptionist,ironer,washer'], function($app){
+$routes->group("app", function($app){
   $app->addRedirect("/", "app/main");
-  $app->get('main', 'App::index', ['filter' => 'role:admin,manager,receptionist']);
+  $app->get('main', 'App::index');
+  $app->get('puppies', 'App::puppies');
+  $app->get('puppies/(:num)', "App::showPuppy/$1");
   $app->get('trial', 'App::trials');
-  $app->get('laundry', 'App::laundry');
   $app->get('user', 'App::user');
   $app->group("hire", ['filter' => 'role:admin,manager'], function($hire){
     $hire->get('generateId', 'AuthController::generateId');
@@ -47,6 +50,7 @@ $routes->group("app", ['filter' => 'login:admin,manager,receptionist,ironer,wash
     $dashboard->get("(:any)", "App::dashboard/$1");
   });
 });
+
 
 $routes->group("staffs", ['filter' => 'login'], function($route){
   $route->get("", "Staffs::index");
@@ -78,40 +82,11 @@ $routes->match(
   "Search::search/$1"
 );
 
-$routes->group("issues", ['filter' => 'login'], function($route){
-  $route->get("/", "Issues::index");
-  $route->post("/", "Issues::create", ['filter' => 'permission:app.manage,app.clothes.manage,app.accounts.manage']);
-  $route->post("update", "Issues::update", ['filter' => 'permission:app.manage,app.clothes.manage,app.accounts.manage']);
-  $route->get("stats", "Issues::statistics");
-  $route->get("(:segment)/delete", "Issues::delete", ['filter' => 'role:admin']);
-});
-
 $routes->group("accounts", ['filter' => 'login'], function($route){
   $route->get("/", "Accounts::index");
   $route->post("/", "Accounts::create", ['filter' => 'permission:app.manage,app.accounts.manage']);
   $route->get("stats", "Accounts::statistics");
   $route->get("(:segment)/delete", "Accounts::delete", ['filter' => 'role:admin']);
-});
-
-$routes->group("expenses", ['filter' => 'login'], function($route){
-  $route->get("/", "Expenses::index");
-  $route->post("/", "Expenses::create", ['filter' => 'permission:app.manage,app.clothes.manage,app.accounts.manage']);
-  $route->post("edit", "Expenses::update", ['filter' => 'permission:app.manage,app.clothes.manage,app.accounts.manage']);
-  $route->get("(:segment)/delete", "Expenses::delete", ['filter' => 'role:admin']);
-  $route->get("range", "Expenses::inRange");
-});
-
-$routes->group("clothes", ['filter' => 'login'], function($route){
-  $route->group("categories", function($route){
-    $route->post("new", "Clothes::newCategory");
-    $route->get("", "Clothes::categories");
-    $route->post("update", "Clothes::updateCategory");
-  });
-  $route->get("stats/(:segment)", "Clothes::stats/$1");
-  $route->get("(:segment)/wash", "Clothes::wash/$1", ["filter"=>"permission:app.clothes.manage,app.clothes.wash"]);
-  $route->get("(:segment)/iron", "Clothes::iron/$1", ["filter"=>"permission:app.clothes.manage,app.clothes.iron"]);
-  $route->get("(:segment)/confirm", "Clothes::confirm/$1", ["filter"=>"permission:app.clothes.manage"]);
-  $route->get("(:segment)/dispense", "Clothes::dispense/$1", ["filter"=>"permission:app.clothes.manage,app.clothes.dispense"]);
 });
 
 $routes->group("setup", function($route){

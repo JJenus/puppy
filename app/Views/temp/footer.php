@@ -1,29 +1,66 @@
-<!--begin::Footer-->
-<div class="footer py-4 d-flex flex-lg-column" id="kt_footer">
-	<!--begin::Container-->
-	<div class="container d-flex flex-column flex-md-row flex-stack">
-		<!--begin::Copyright-->
-		<div class="text-dark order-2 order-md-1">
-			<span class="text-muted fw-bold me-2">2021©</span>
-			<a href="<?= base_url() ?>" target="_blank" class="text-gray-800 text-hover-primary"> 
-			  <?= APP_NAME ?>
-			</a>
-		</div>
-		<!--end::Copyright-->
-		<!--begin::Nav-->
-		<ul class="menu menu-gray-600 menu-hover-primary fw-bold order-1">
-			<li class="menu-item">
-				<a href="<?= base_url('app/dashboard') ?>" class="menu-link ps-0 pe-2">Dashboard</a>
-			</li>
-			<li  class="menu-item">
-				<a href="<?= base_url() ?>/about" class="menu-link ps-0 pe-2">About</a>
-			</li>
-			<li class="menu-item">
-				<a  class="menu-link pe-0 pe-2">Help</a>
-			</li>
-		</ul>
-		<!--end::Nav-->
-	</div>
-	<!--end::Container-->
-</div>
-<!--end::Footer-->
+<footer class="footer pt-5 pb-4 pb-lg-5 mt-2 mt-md-0">
+      <div class="container pt-lg-4">
+        <div class="row pb-5">
+          <div class="col-lg-4 col-md-6">
+            <div class="navbar-brand text-dark p-0 me-0 mb-3 mb-lg-4">
+              <img src="<?=base_url("assets/img/logo.svg")?>" width="47" alt="Silicon">
+              <?=APP_NAME?>
+            </div>
+            <p class="fs-sm pb-lg-3 mb-4">
+              Puppy is a digital pet shop that provides simple click solutions for people to get their dream pets. Puppy supports most of the popular dogs in the market and provides fast, friendly and accurate services. A fresh new way to get a pet delivered right to your door. 
+            </p>
+            <form class="needs-validation" novalidate>
+              <label for="subscr-email" class="form-label">Subscribe to our newsletter</label>
+              <div class="input-group">
+                <input type="email" id="subscr-email" class="form-control rounded-start ps-5" placeholder="Your email" required>
+                <i class="bx bx-envelope fs-lg text-muted position-absolute top-50 start-0 translate-middle-y ms-3 zindex-5"></i>
+                <div class="invalid-tooltip position-absolute top-100 start-0">Please provide a valid email address.</div>
+                <button type="submit" class="btn btn-primary">Subscribe</button>
+              </div>
+            </form>
+          </div>
+          <div class="col-xl-6 col-lg-7 col-md-5 offset-xl-2 offset-md-1 pt-4 pt-md-1 pt-lg-0">
+            <div id="footer-links" class="row">
+              <div class="col-lg-4">
+                <h6 class="mb-2">
+                  <a href="#useful-links" class="d-block text-dark dropdown-toggle d-lg-none py-2" data-bs-toggle="collapse">Useful Links</a>
+                </h6>
+                <div id="useful-links" class="collapse d-lg-block" data-bs-parent="#footer-links">
+                  <ul class="nav flex-column pb-lg-1 mb-lg-3">
+                    <li class="nav-item"><a href="#" class="nav-link d-inline-block px-0 pt-1 pb-2">Home</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link d-inline-block px-0 pt-1 pb-2">Services</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link d-inline-block px-0 pt-1 pb-2">Our Works</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link d-inline-block px-0 pt-1 pb-2">About</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link d-inline-block px-0 pt-1 pb-2">Blog</a></li>
+                  </ul>
+                  <ul class="nav flex-column mb-2 mb-lg-0">
+                    <li class="nav-item"><a href="#" class="nav-link d-inline-block px-0 pt-1 pb-2">Terms &amp; Conditions</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link d-inline-block px-0 pt-1 pb-2">Privacy Policy</a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-xl-4 col-lg-3">
+                <h6 class="mb-2">
+                  <a href="#social-links" class="d-block text-dark dropdown-toggle d-lg-none py-2" data-bs-toggle="collapse">Socials</a>
+                </h6>
+                <div id="social-links" class="collapse d-lg-block" data-bs-parent="#footer-links">
+                  <ul class="nav flex-column mb-2 mb-lg-0">
+                    <li class="nav-item"><a href="#" class="nav-link d-inline-block px-0 pt-1 pb-2">Facebook</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link d-inline-block px-0 pt-1 pb-2">LinkedIn</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link d-inline-block px-0 pt-1 pb-2">Twitter</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link d-inline-block px-0 pt-1 pb-2">Behance</a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-xl-4 col-lg-5 pt-2 pt-lg-0">
+                <h6 class="mb-2">Contact Us</h6>
+                <a href="mailto:email@puppy.com" class="fw-medium">support@pupplus.com</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="fs-xs text-center text-md-start pb-2 pb-lg-0 mb-0">
+          &copy; All rights reserved <?= date("Y")?>
+        </p>
+      </div>
+    </footer>
