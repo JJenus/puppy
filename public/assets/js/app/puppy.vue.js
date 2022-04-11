@@ -171,7 +171,6 @@ let app = new Vue({
     deleteCache(){
       console.log("deleted local data.");
       localStorage.removeItem("likes"+this.puppy.id);
-      localStorage.setItem("likes"+this.puppy.id, null);
       console.log(this.getCache());
     }, 
     getCache(){
