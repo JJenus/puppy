@@ -25,7 +25,7 @@
 
                 <!-- Video popup btn -->
                 <div class="d-inline-flex align-items-center position-relative mb-3">
-                  <a href="<?=base_url("uploads/puppy12344.mp4")?>" class="btn btn-video btn-icon btn-lg flex-shrink-0 me-3 stretched-link" data-bs-toggle="video">
+                  <a href="https://youtu.be/Z6IRLZs4FVM" class="btn btn-video btn-icon btn-lg flex-shrink-0 me-3 stretched-link" data-bs-toggle="video">
                     <i class="bx bx-play"></i>
                   </a>
                   <h4 class="mb-0">Digital Pet Shop</h4>
@@ -120,7 +120,7 @@
 
           <!-- Item -->
           <div class="masonry-grid-item col-md-4 col-sm-6 col-12">
-            <a :href="'<?= base_url("app/puppies/") ?>'+latest[0].id" class="card card-portfolio card-hover bg-transparent border-0">
+            <a :href="'<?= base_url("app/puppies/") ?>/'+latest[0].id" class="card card-portfolio card-hover bg-transparent border-0">
               <div class="card-img-overlay d-flex flex-column align-items-center justify-content-center rounded-3">
                 <span class="position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-50 rounded-3"></span>
                 <div class="position-relative zindex-2">
@@ -129,12 +129,12 @@
                 </div>
               </div>
               <div class="card-img">
-                <img src="<?= base_url() ?>/assets/img/portfolio/grid/07.jpg" class="rounded-3" alt="Image">
+                <img :src="img(latest[0].media)" class="rounded-3" alt="Image">
               </div>
             </a>
           </div>
           <div class="masonry-grid-item col-md-4 col-sm-6 col-12">
-            <a :href="'<?= base_url("app/puppies/") ?>'+latest[1].id" class="card card-portfolio card-hover bg-transparent border-0">
+            <a :href="'<?= base_url("app/puppies/") ?>/'+latest[1].id" class="card card-portfolio card-hover bg-transparent border-0">
               <div class="card-img-overlay d-flex flex-column align-items-center justify-content-center rounded-3">
                 <span class="position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-50 rounded-3"></span>
                 <div class="position-relative zindex-2">
@@ -143,12 +143,12 @@
                 </div>
               </div>
               <div class="card-img">
-                <img src="<?= base_url() ?>/assets/img/portfolio/grid/07.jpg" class="rounded-3" alt="Image">
+                <img :src="img(latest[1].media)" class="rounded-3" alt="Image">
               </div>
             </a>
           </div>
           <div class="masonry-grid-item col-md-4 col-sm-6 col-12">
-            <a :href="'<?= base_url("app/puppies/") ?>'+latest[2].id" class="card card-portfolio card-hover bg-transparent border-0">
+            <a :href="'<?= base_url("app/puppies/") ?>/'+latest[2].id" class="card card-portfolio card-hover bg-transparent border-0">
               <div class="card-img-overlay d-flex flex-column align-items-center justify-content-center rounded-3">
                 <span class="position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-50 rounded-3"></span>
                 <div class="position-relative zindex-2">
@@ -157,7 +157,7 @@
                 </div>
               </div>
               <div class="card-img">
-                <img src="<?= base_url() ?>/assets/img/portfolio/grid/07.jpg" class="rounded-3" alt="Image">
+                <img :src="img(latest[2].media)" class="rounded-3" alt="Image">
               </div>
             </a>
           </div>
@@ -165,7 +165,7 @@
           
           <!-- Item -->
           <div class="masonry-grid-item col-md-8 col-12">
-            <a href="portfolio-single-project.html" class="card card-portfolio card-hover bg-transparent border-0">
+            <a :href="'<?= base_url("app/puppies/") ?>/'+latest[3].id" class="card card-portfolio card-hover bg-transparent border-0">
               <div class="card-img-overlay d-flex flex-column align-items-center justify-content-center rounded-3">
                 <span class="position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-50 rounded-3"></span>
                 <div class="position-relative zindex-2">
@@ -174,7 +174,7 @@
                 </div>
               </div>
               <div class="card-img">
-                <img src="<?= base_url() ?>/assets/img/portfolio/grid/10.jpg" class="rounded-3" alt="Image">
+                <img :src="img(latest[3].media)" class="rounded-3" alt="Image">
               </div>
             </a>
           </div>

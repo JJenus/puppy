@@ -30,7 +30,9 @@ let app = new Vue({
     toTime($date){
       return (moment($date, 'YYYY-MM-DD HH:mm:ss')).format("hh:mm a");
     }, 
-    
+    img(media){
+      return media.photos[0].url;
+    }, 
     loadLatest(){
       let options = {
         limit: 4, 

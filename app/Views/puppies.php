@@ -11,9 +11,9 @@
       <nav class="container mt-lg-4 pt-5" aria-label="breadcrumb">
         <ol class="breadcrumb mb-0 pt-5">
           <li class="breadcrumb-item">
-            <a href="<?=base_url()?>"><i class="bx bx-home-alt fs-lg me-1"></i>Home</a>
+            <a href="<?=base_url()?>"><i class="bx bx-home-alt fs-lg me-1"></i>App</a>
           </li>
-          <li class="breadcrumb-item active" aria-current="page">Blog Grid with Sidebar</li>
+          <li class="breadcrumb-item active" aria-current="page">Puppies</li>
         </ol>
       </nav>
 
