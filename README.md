@@ -1,2 +1,2 @@
-This is a web based pet shop. 
-Development in progress. 
+Welcome to Puply, a web based pet shop allowing users access to a wide collection of furry friends.
+Digital products make it easy to stay connected, but not all of us have enough space for a real one. This can be frustrating for those of us who do believe that pets come in millions of different shapes and sizes. So we built Puply – a web based pet shop where users can browse and find just the right match for their lifestyle.
