@@ -17,7 +17,7 @@ class Comments extends Seeder
 	  $cmodel->protect(false);
 	  
 	  foreach($puppies as $puppy){
-	    $comments = random_int(0,6);
+	    $comments = random_int(0,4);
 	    for ($i = 0; $i < $comments; $i++) {
 	      $user = $users[random_int(0, count($users)-1)];
 	      $comment = $this->createComment($puppy, $user);

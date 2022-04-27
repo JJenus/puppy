@@ -11,8 +11,8 @@ class Interactions extends Seeder
 	{
 	  $puppies = $this->loadPuppies();
 	  foreach ($puppies as $puppy){
-	    $views = random_int(0, 200);
-	    $impressions = random_int(0, 200);
+	    $views = random_int(0, 9);
+	    $impressions = random_int(0, 13);
 	    $vmodel = model("ViewModel");
 	    $vmodel->protect(false);
 	    $imodel = model("ImpressionModel");

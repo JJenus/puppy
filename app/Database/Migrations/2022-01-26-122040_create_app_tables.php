@@ -21,7 +21,7 @@ class CreateAppTables extends Migration
             'deleted_at'       => ['type' => 'datetime', 'null' => true],
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->addForeignKey('user_id', 'users', 'id', false, 'CASCADE');
+        #$this->forge->addForeignKey('user_id', 'users', 'id', false, 'CASCADE');
         $this->forge->createTable('addresses', true);
          
          
@@ -46,7 +46,7 @@ class CreateAppTables extends Migration
         ]);
 
         $this->forge->addKey('id', true);
-        $this->forge->addForeignKey('created_by', 'users', 'id', false, 'CASCADE');
+        #$this->forge->addForeignKey('created_by', 'users', 'id', false, 'CASCADE');
         $this->forge->createTable('puppies', true);
         
         
@@ -65,7 +65,7 @@ class CreateAppTables extends Migration
         ]);
 
         $this->forge->addKey('id', true);
-        $this->forge->addForeignKey('puppy_id', 'puppies', 'id', false, 'CASCADE');
+        ##$this->forge->addForeignKey('puppy_id', 'puppies', 'id', false, 'CASCADE');
         $this->forge->createTable('photos', true);
         
         /**
@@ -83,7 +83,7 @@ class CreateAppTables extends Migration
         ]);
 
         $this->forge->addKey('id', true);
-        $this->forge->addForeignKey('puppy_id', 'puppies', 'id', false, 'CASCADE');
+        #$this->forge->addForeignKey('puppy_id', 'puppies', 'id', false, 'CASCADE');
         $this->forge->createTable('videos', true);
         
         /**
@@ -99,7 +99,7 @@ class CreateAppTables extends Migration
         ]);
 
         $this->forge->addKey('id', true);
-        $this->forge->addForeignKey('puppy_id', 'puppies', 'id', false, 'CASCADE');
+        #$this->forge->addForeignKey('puppy_id', 'puppies', 'id', false, 'CASCADE');
         $this->forge->createTable('views', true);
         
         /**
@@ -115,7 +115,7 @@ class CreateAppTables extends Migration
         ]);
 
         $this->forge->addKey('id', true);
-        $this->forge->addForeignKey('puppy_id', 'puppies', 'id', false, 'CASCADE');
+        #$this->forge->addForeignKey('puppy_id', 'puppies', 'id', false, 'CASCADE');
         $this->forge->createTable('impressions', true);
         
         /**
@@ -132,7 +132,7 @@ class CreateAppTables extends Migration
         ]);
 
         $this->forge->addKey('id', true);
-        $this->forge->addForeignKey('puppy_id', 'puppies', 'id', false, 'CASCADE');
+        #$this->forge->addForeignKey('puppy_id', 'puppies', 'id', false, 'CASCADE');
         $this->forge->createTable('likes', true);
         
         /**
@@ -140,17 +140,17 @@ class CreateAppTables extends Migration
          */
         $this->forge->addField([
             'id'               => ['type' => 'int', 'constraint' => 11, 'unsigned' => true, 'auto_increment' => true],
-            'puppy_id'      => ['type' => 'int', 'constraint' => 11, 'null' => true],
-            'user_id'          => ['type' => 'text'],
-            'price'          => ['type' => 'varchar'],
+            'puppy_id'         => ['type' => 'int', 'constraint' => 11],
+            'user_id'          => ['type' => 'varchar', 'constraint' => 60],
+            'price'            => ['type' => 'varchar', 'constraint' => 60],
             'created_at'       => ['type' => 'datetime', 'null' => true],
             'updated_at'       => ['type' => 'datetime', 'null' => true],
             'deleted_at'       => ['type' => 'datetime', 'null' => true],
         ]);
 
         $this->forge->addKey('id', true);
-        $this->forge->addForeignKey('user_id', 'users', 'id', false, 'CASCADE');
-        $this->forge->addForeignKey('puppy_id', 'puppies', 'id', false, 'CASCADE');
+        #$this->forge->addForeignKey('user_id', 'users', 'id', false, 'CASCADE');
+        #$this->forge->addForeignKey('puppy_id', 'puppies', 'id', false, 'CASCADE');
         $this->forge->createTable('orders', true);
         
         /**
@@ -167,8 +167,8 @@ class CreateAppTables extends Migration
         ]);
 
         $this->forge->addKey('id', true);
-        $this->forge->addForeignKey('user_id', 'users', 'id', false, 'CASCADE');
-        $this->forge->addForeignKey('puppy_id', 'puppies', 'id', false, 'CASCADE');
+        #$this->forge->addForeignKey('user_id', 'users', 'id', false, 'CASCADE');
+        #$this->forge->addForeignKey('puppy_id', 'puppies', 'id', false, 'CASCADE');
         $this->forge->createTable('comments', true);
         
         
@@ -186,8 +186,8 @@ class CreateAppTables extends Migration
         ]);
 
         $this->forge->addKey('id', true);
-        $this->forge->addForeignKey('user_id', 'users', 'id', false, 'CASCADE');
-        $this->forge->addForeignKey('comment_id', 'comments', 'id', false, 'CASCADE');
+        #$this->forge->addForeignKey('user_id', 'users', 'id', false, 'CASCADE');
+        #$this->forge->addForeignKey('comment_id', 'comments', 'id', false, 'CASCADE');
         $this->forge->createTable('comment_replies', true);
         
         
@@ -204,8 +204,8 @@ class CreateAppTables extends Migration
         ]);
 
         $this->forge->addKey('id', true);
-        #$this->forge->addForeignKey('user_id', 'users', 'id', false, 'CASCADE');
-        #$this->forge->addForeignKey('comment_id', 'comments', 'id', false, 'CASCADE');
+        ##$this->forge->addForeignKey('user_id', 'users', 'id', false, 'CASCADE');
+        ##$this->forge->addForeignKey('comment_id', 'comments', 'id', false, 'CASCADE');
         $this->forge->createTable('comment_likes', true);
         
     }
@@ -217,7 +217,7 @@ class CreateAppTables extends Migration
 		// drop constraints first to prevent errors
         if ($this->db->DBDriver != 'SQLite3')
         {
-            $this->forge->dropForeignKey('puppies', 'puppies_created_by_foreign');
+            /*$this->forge->dropForeignKey('puppies', 'puppies_created_by_foreign');
             $this->forge->dropForeignKey('addresses', 'addresses_user_id_foreign');
             $this->forge->dropForeignKey('photos', 'photos_puppy_id_foreign');
             $this->forge->dropForeignKey('videos', 'videos_puppy_id_foreign');
@@ -230,7 +230,7 @@ class CreateAppTables extends Migration
             $this->forge->dropForeignKey('comments', 'comments_user_id_foreign');
             $this->forge->dropForeignKey('comment_replies', 'comment_replies_user_id_foreign');
             $this->forge->dropForeignKey('comment_replies', 'comments_replies_comment_id_foreign');
-           
+           */
         }
 
   		$this->forge->dropTable('puppies', true);

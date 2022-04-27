@@ -14,7 +14,8 @@ class Puppies extends Seeder
     $users = $this->loadLegibleUsers();
 		foreach ($puppies as $dogo){
 		  $puppy = $this->createPuppy($dogo);
-		  $puppy["created_by"] = $users[random_int(0,count($users)-1)]->id;
+		  $c_len = count($users)-1;
+		  $puppy["created_by"] = $users[random_int(0, $c_len)]->id;
   		$model->setMedia($puppy["media"]);
 		  if (!$model->save($puppy)) {
 		    $this->log($model->errors);
@@ -116,5 +117,4 @@ class Puppies extends Seeder
 	  fwrite($log, "\n\n".$data);
 	  fclose($log);
 	} 
-}                                                                                                                                            
-              
+}

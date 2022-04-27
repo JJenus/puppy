@@ -1,7 +1,7 @@
   
 <head>
     <meta charset="utf-8">
-    <title>Silicon | Digital Agency Landing</title>
+    <title>Puppy | Digital Pet Shop</title>
 
     <!-- SEO Meta Tags -->
     <meta name="description" content="Puppy - Online pet shop for dog lovers">

@@ -11,11 +11,7 @@
   <?= $this->endSection() ?> 
   
   <?= $this->section('main') ?>
-    <!-- Page wrapper for sticky footer -->
-    <!-- Wraps everything except footer to push footer to the bottom of the page if there is little content -->
     
-      <!-- Navbar -->
-     
       <!-- Hero -->
       <section class="jarallax position-relative d-flex align-items-center min-vh-100 bg-light mb-5 py-lg-5 pt-5" style="background-image: url(<?= base_url() ?>/assets/img/landing/digital-agency/hero-bg.svg);" data-jarallax data-img-position="0% 100%" data-speed="0.5">
         <div class="container position-relative zindex-5 py-5">
@@ -52,7 +48,7 @@
 
             <!-- Animated gfx -->
             <div class="col-sm-6 col-sm-6 col-9 order-md-2 order-1">
-              <lottie-player class="mx-auto" src="<?= base_url() ?>/assets/json/animation-digital-agency.json" background="transparent" speed="1" loop autoplay></lottie-player>
+              <img class="w-100 rounded" src="<?= base_url() ?>/assets/img/avatar/shephard.png" alt="puppy">
             </div>
           </div>
         </div>
@@ -114,72 +110,17 @@
       <section class="container mb-5 pt-lg-2 pt-xl-4 pb-2 pb-md-3 pb-lg-5">
         <h2 class="h1 mb-4 text-center">Latest Posts</h2>
         <p class="mb-4 mx-auto pb-3 fs-lg text-center" style="max-width: 636px;">We create websites and mobile apps, marketing materials, branding, web design, UX/UI design and illustrations.</p>
-
-        <!-- Portfolio grid -->
-        <div v-if="latest" class="masonry-grid row g-md-4 g-3 mb-4">
-
-          <!-- Item -->
-          <div class="masonry-grid-item col-md-4 col-sm-6 col-12">
-            <a :href="'<?= base_url("app/puppies/") ?>/'+latest[0].id" class="card card-portfolio card-hover bg-transparent border-0">
-              <div class="card-img-overlay d-flex flex-column align-items-center justify-content-center rounded-3">
-                <span class="position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-50 rounded-3"></span>
-                <div class="position-relative zindex-2">
-                  <h3 class="h5 text-light mb-2">{{latest[0].name}}</h3>
-                  <span class="fs-sm text-light opacity-70">{{latest[0].breed}}</span>
-                </div>
+        <div class="row">
+          <div v-for="puppy in latest" class="col-md-6 mb-3">
+            <div class="card">
+              <!-- Card -->
+              <div class="card">
+                <img class="card-img-top" style="height: 500px;" :src="img(puppy.media)" alt="Card image">
               </div>
-              <div class="card-img">
-                <img :src="img(latest[0].media)" class="rounded-3" alt="Image">
-              </div>
-            </a>
-          </div>
-          <div class="masonry-grid-item col-md-4 col-sm-6 col-12">
-            <a :href="'<?= base_url("app/puppies/") ?>/'+latest[1].id" class="card card-portfolio card-hover bg-transparent border-0">
-              <div class="card-img-overlay d-flex flex-column align-items-center justify-content-center rounded-3">
-                <span class="position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-50 rounded-3"></span>
-                <div class="position-relative zindex-2">
-                  <h3 class="h5 text-light mb-2">{{latest[1].name}}</h3>
-                  <span class="fs-sm text-light opacity-70">{{latest[1].breed}}</span>
-                </div>
-              </div>
-              <div class="card-img">
-                <img :src="img(latest[1].media)" class="rounded-3" alt="Image">
-              </div>
-            </a>
-          </div>
-          <div class="masonry-grid-item col-md-4 col-sm-6 col-12">
-            <a :href="'<?= base_url("app/puppies/") ?>/'+latest[2].id" class="card card-portfolio card-hover bg-transparent border-0">
-              <div class="card-img-overlay d-flex flex-column align-items-center justify-content-center rounded-3">
-                <span class="position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-50 rounded-3"></span>
-                <div class="position-relative zindex-2">
-                  <h3 class="h5 text-light mb-2">{{latest[2].name}}</h3>
-                  <span class="fs-sm text-light opacity-70">{{latest[2].breed}}</span>
-                </div>
-              </div>
-              <div class="card-img">
-                <img :src="img(latest[2].media)" class="rounded-3" alt="Image">
-              </div>
-            </a>
-          </div>
-
-          
-          <!-- Item -->
-          <div class="masonry-grid-item col-md-8 col-12">
-            <a :href="'<?= base_url("app/puppies/") ?>/'+latest[3].id" class="card card-portfolio card-hover bg-transparent border-0">
-              <div class="card-img-overlay d-flex flex-column align-items-center justify-content-center rounded-3">
-                <span class="position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-50 rounded-3"></span>
-                <div class="position-relative zindex-2">
-                  <h3 class="h5 text-light mb-2">{{latest[3].name}}</h3>
-                  <span class="fs-sm text-light opacity-70">{{latest[3].breed}}</span>
-                </div>
-              </div>
-              <div class="card-img">
-                <img :src="img(latest[3].media)" class="rounded-3" alt="Image">
-              </div>
-            </a>
+            </div>
           </div>
         </div>
-
+      
         <div class="pt-md-3 pt-2 text-center">
           <a href="<?=base_url("app/puppies")?>" class="btn btn-lg btn-primary w-sm-auto w-100">Explore all</a>
         </div>
@@ -282,159 +223,12 @@
             </div>
           </div>
         </div>
-      </section>
+      </section>    
 
-      <!-- Testimonials slider -->
-      <section class="container mb-5 pt-2 pb-3 py-md-4 py-lg-5">
-        <h2 class="h1 pb-2 pb-lg-0 mb-4 mb-lg-5 text-center">What They Say About Us</h2>
-        <div class="row">
-          <div class="col-md-8">
-            <div class="card border-0 shadow-sm p-4 p-xxl-5 mb-4 me-xxl-4">
-
-              <!-- Quotation mark -->
-              <div class="pb-4 mb-2">
-                <span class="btn btn-icon btn-primary btn-lg shadow-primary pe-none">
-                  <i class="bx bxs-quote-left"></i>
-                </span>
-              </div>
-
-              <!-- Slider -->
-              <div class="swiper mx-0 mb-md-n2 mb-xxl-n3" data-swiper-options='{
-                "spaceBetween": 24,
-                "pager": true,
-                "loop": true,
-                "tabs": true,
-                "navigation": {
-                  "prevEl": ".page-prev",
-                  "nextEl": ".page-next"
-                }
-              }'>
-                <div class="swiper-wrapper">
-
-                  <!-- Item -->
-                  <div class="swiper-slide h-auto" data-swiper-tab="#author-1">
-                    <figure class="card h-100 position-relative border-0 bg-transparent">
-                      <blockquote class="card-body p-0 mb-0">
-                        <p class="fs-lg mb-0">Dolor, a eget elementum, integer nulla volutpat, nunc, sit. Quam iaculis varius mauris magna sem. Egestas sed sed suscipit dolor faucibus dui imperdiet at eget. Tincidunt imperdiet quis hendrerit aliquam feugiat neque cras sed. Dictum quam integer volutpat tellus, faucibus platea. Pulvinar turpis proin faucibus at mauris. Sagittis gravida vitae porta enim, nulla arcu fermentum massa. Tortor ullamcorper lacus. Pellentesque lectus adipiscing aenean volutpat tortor habitant.</p>
-                      </blockquote>
-                      <figcaption class="card-footer border-0 d-sm-flex d-md-none w-100 pb-2">
-                        <div class="d-flex align-items-center border-end-sm pe-sm-4 me-sm-2">
-                          <img src="<?= base_url() ?>/assets/img/avatar/01.jpg" width="48" class="rounded-circle" alt="Ralph Edwards">
-                          <div class="ps-3">
-                            <h5 class="fw-semibold lh-base mb-0">Ralph Edwards</h5>
-                            <span class="fs-sm text-muted">Head of Marketing</span>
-                          </div>
-                        </div>
-                        <img src="<?= base_url() ?>/assets/img/brands/01.svg" width="160" class="d-block mt-2 ms-5 mt-sm-0 ms-sm-0" alt="Company logo">
-                      </figcaption>
-                    </figure>
-                  </div>
-
-                  <!-- Item -->
-                  <div class="swiper-slide h-auto" data-swiper-tab="#author-2">
-                    <figure class="card h-100 position-relative border-0 bg-transparent">
-                      <blockquote class="card-body p-0 mb-0">
-                        <p class="fs-lg mb-0">Mi semper risus ultricies orci pulvinar in at enim orci. Quis facilisis nunc pellentesque in ullamcorper sit. Lorem blandit arcu sapien, senectus libero, amet dapibus cursus quam. Eget pellentesque eu purus volutpat adipiscing malesuada. Purus nisi, tortor vel lacus. Donec diam molestie ultrices vitae eget pulvinar fames. Velit lacus mi purus velit justo, amet. Nascetur lobortis diam, duis orci.</p>
-                      </blockquote>
-                      <figcaption class="card-footer border-0 d-sm-flex d-md-none w-100 pb-2">
-                        <div class="d-flex align-items-center border-end-sm pe-sm-4 me-sm-2">
-                          <img src="<?= base_url() ?>/assets/img/avatar/06.jpg" width="48" class="rounded-circle" alt="Annette Black">
-                          <div class="ps-3">
-                            <h5 class="fw-semibold lh-base mb-0">Annette Black</h5>
-                            <span class="fs-sm text-muted">Strategic Advisor</span>
-                          </div>
-                        </div>
-                        <img src="<?= base_url() ?>/assets/img/brands/02.svg" width="160" class="d-block mt-2 ms-5 mt-sm-0 ms-sm-0" alt="Company logo">
-                      </figcaption>
-                    </figure>
-                  </div>
-
-                  <!-- Item -->
-                  <div class="swiper-slide h-auto" data-swiper-tab="#author-3">
-                    <figure class="card h-100 position-relative border-0 bg-transparent">
-                      <blockquote class="card-body p-0 mb-0">
-                        <p class="fs-lg mb-0">Ac at sed sit senectus massa. Massa ante amet ultrices magna porta tempor. Aliquet diam in et magna ultricies mi at. Lectus enim, vel enim egestas nam pellentesque et leo. Elit mi faucibus laoreet aliquam pellentesque sed aliquet integer massa. Orci leo tortor ornare id mattis auctor aliquam volutpat aliquet. Odio lectus viverra eu blandit nunc malesuada vitae eleifend pulvinar. In ac fermentum sit in orci.</p>
-                      </blockquote>
-                      <figcaption class="card-footer border-0 d-sm-flex d-md-none w-100 pb-2">
-                        <div class="d-flex align-items-center border-end-sm pe-sm-4 me-sm-2">
-                          <img src="<?= base_url() ?>/assets/img/avatar/05.jpg" width="48" class="rounded-circle" alt="Darrell Steward">
-                          <div class="ps-3">
-                            <h5 class="fw-semibold lh-base mb-0">Darrell Steward</h5>
-                            <span class="fs-sm text-muted">Project Manager</span>
-                          </div>
-                        </div>
-                        <img src="<?= base_url() ?>/assets/img/brands/04.svg" width="160" class="d-block mt-2 ms-5 mt-sm-0 ms-sm-0" alt="Company logo">
-                      </figcaption>
-                    </figure>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Pagination (Pager) -->
-            <nav class="pagination d-flex justify-content-center justify-content-md-start">
-              <div class="page-item me-2">
-                <a class="page-link page-prev btn-icon btn-sm" href="#">
-                  <i class="bx bx-chevron-left"></i>
-                </a>
-              </div>
-              <ul class="list-unstyled d-flex justify-content-center w-auto mb-0"></ul>
-              <div class="page-item ms-2">
-                <a class="page-link page-next btn-icon btn-sm" href="#">
-                  <i class="bx bx-chevron-right"></i>
-                </a>
-              </div>
-            </nav>
-          </div>
-          <div class="col-md-4 d-none d-md-block">
-
-            <!-- Swiper tabs (Author images) -->
-            <div class="swiper-tabs">
-
-              <!-- Author image 1 -->
-              <div id="author-1" class="card bg-transparent border-0 swiper-tab active">
-                <div class="card-body p-0 rounded-3 bg-size-cover bg-repeat-0 bg-position-top-center" style="background-image: url(<?= base_url() ?>/assets/img/testimonials/01.jpg);"></div>
-                <div class="card-footer d-flex w-100 border-0 pb-0">
-                  <img src="<?= base_url() ?>/assets/img/brands/01.svg" width="160" class="d-none d-xl-block" alt="Company logo">
-                  <div class="border-start-xl ps-xl-4 ms-xl-2">
-                    <h5 class="fw-semibold lh-base mb-0">Ralph Edwards</h5>
-                    <span class="fs-sm text-muted">Head of Marketing <span class="d-xl-none d-inline">at Lorem Ltd.</span></span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Author image 2 -->
-              <div id="author-2" class="card bg-transparent border-0 swiper-tab">
-                <div class="card-body p-0 rounded-3 bg-size-cover bg-repeat-0 bg-position-top-center" style="background-image: url(<?= base_url() ?>/assets/img/testimonials/02.jpg);"></div>
-                <div class="card-footer d-flex w-100 border-0 pb-0">
-                  <img src="<?= base_url() ?>/assets/img/brands/02.svg" width="160" class="d-none d-xl-block" alt="Company logo">
-                  <div class="border-start-xl ps-xl-4 ms-xl-2">
-                    <h5 class="fw-semibold lh-base mb-0">Annette Black</h5>
-                    <span class="fs-sm text-muted">Strategic Advisor <span class="d-xl-none d-inline">at Company LLC</span></span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Author image 3 -->
-              <div id="author-3" class="card bg-transparent border-0 swiper-tab">
-                <div class="card-body p-0 rounded-3 bg-size-cover bg-repeat-0 bg-position-top-center" style="background-image: url(<?= base_url() ?>/assets/img/testimonials/03.jpg);"></div>
-                <div class="card-footer d-flex w-100 border-0 pb-0">
-                  <img src="<?= base_url() ?>/assets/img/brands/04.svg" width="160" class="d-none d-xl-block" alt="Company logo">
-                  <div class="border-start-xl ps-xl-4 ms-xl-2">
-                    <h5 class="fw-semibold lh-base mb-0">Darrell Steward</h5>
-                    <span class="fs-sm text-muted">Project Manager <span class="d-xl-none d-inline">at Ipsum Ltd.</span></span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Blog + Contact cta -->
+  
       <div class="bg-secondary mb-5 pt-5">
 
-        <!-- Blog -->
+        <!-- Most viewed -->
         <section class="container mb-5 py-lg-5">
           <h2 class="h1 mb-4 pb-3 text-center">Most Viewed</h2>
           <div class="row">

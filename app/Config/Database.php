@@ -29,6 +29,9 @@ class Database extends Config
 	 * The default database connection.
 	 *
 	 * @var array
+	
+	 */
+	 	
 	public $default = [
 		'DSN'      => '',
 		'hostname' => '',
@@ -48,26 +51,6 @@ class Database extends Config
 		'failover' => [],
 		'port'     => 3306,
 	];
-	 */
-	 	public $default = [
-    'DSN'      => 'MySQLi://b01da2b9d98918:05da8a3d@us-cdbr-east-05.cleardb.net/heroku_d0637ebdd0ffaaa?reconnect=true',
-    'hostname' => '',
-    'username' => 'bb09caa56b1999',
-    'password' => '22ff5304',
-    'database' => 'heroku_587c69770df2b1f',
-    'DBDriver' => 'MySQLi',
-    'DBPrefix' => '',
-    'pConnect' => TRUE,
-    'DBDebug'  => TRUE,
-    'charset'  => 'utf8',
-    'DBCollat' => 'utf8_general_ci',
-    'swapPre'  => '',
-    'encrypt'  => FALSE,
-    'compress' => FALSE,
-    'strictOn' => FALSE,
-    'failover' => [],
-];
-	 
 
 	/**
 	 * This database connection is used when
