@@ -31,7 +31,7 @@
     <script src="<?= base_url() ?>/assets/vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
     <!-- Main Theme Script -->
     <script type="text/javascript" charset="utf-8">
-      var base_url = "<?= base_url() ?>/";
+      
       let notify = function(type="success", msg){
   		  if(type === 'success'){
   		    swal.fire({

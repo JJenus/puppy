@@ -3,7 +3,7 @@
         <div class="container px-3">
           <a href="<?=base_url()?>" class="navbar-brand pe-3">
             <img src="<?= base_url() ?>/assets/img/logo.svg" width="47" alt="Silicon">
-            <?=APP_NAME?>
+            <?= APP_NAME ?>
           </a>
           <div id="navbarNav" class="offcanvas offcanvas-end">
             <div class="offcanvas-header border-bottom">

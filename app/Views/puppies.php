@@ -58,7 +58,7 @@
 
 
           <!-- Sidebar (Offcanvas below lg breakpoint) -->
-          <aside class="col-xl-3 col-lg-4">
+          <aside class="col-xl-3 col-lg-4 d-none">
             <div class="offcanvas offcanvas-end offcanvas-expand-lg" id="blog-sidebar" tabindex="-1">
               <!-- Header -->
               <div class="offcanvas-header border-bottom">

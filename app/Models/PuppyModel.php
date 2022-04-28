@@ -75,41 +75,58 @@ class PuppyModel extends Model
 	}
 	
 	protected function getMedia(array $data){
-    if(gettype($data["data"]) === "array"){
-      if (!isset($data['data'][0]->id)) 
-        return $data;
-      foreach($data["data"] as $key => $value ){
-        $id = $data['data'][$key]->id;
-        $data['data'][$key]->{"media"} = [];
-        $data['data'][$key]->media["photos"] = model("PhotoModel")->where("puppy_id", $id)->findAll();
-        $data['data'][$key]->media["videos"] = model("VideoModel")->where("puppy_id", $id)->findAll();
-      }                                                                                                                    
-    }else {
-      $id = $data['data']->id;
-      if (!isset($data['data']->id)) 
-        return $data;
-      $data['data']->{"media"} = [];
-      $data['data']->media["photos"] = model("PhotoModel")->where("puppy_id", $id)->findAll();
-      $data['data']->media["videos"] = model("VideoModel")->where("puppy_id", $id)->findAll();
-    }
-    return $data;
+		if(gettype($data["data"]) === "array"){
+		if (!isset($data['data'][0]->id)) 
+			return $data;
+		foreach($data["data"] as $key => $value ){
+			$id = $data['data'][$key]->id;
+			$data['data'][$key]->{"media"} = [];
+			$data['data'][$key]->media["photos"] = model("PhotoModel")->where("puppy_id", $id)->findAll();
+			$data['data'][$key]->media["videos"] = model("VideoModel")->where("puppy_id", $id)->findAll();
+		}                                                                                                                    
+		}else {
+		$id = $data['data']->id;
+		if (!isset($data['data']->id)) 
+			return $data;
+		$data['data']->{"media"} = [];
+		$data['data']->media["photos"] = model("PhotoModel")->where("puppy_id", $id)->findAll();
+		$data['data']->media["videos"] = model("VideoModel")->where("puppy_id", $id)->findAll();
+		}
+		return $data;
 	} 
 	
 	protected function getLikes(array $data){
-    if(gettype($data["data"]) === "array"){
-      if (!isset($data['data'][0]->id)) 
-        return $data;
-      foreach($data["data"] as $key => $value){
-        $id = $data['data'][$key]->id;
-        $data['data'][$key]->{"likes"} = model("LikeModel")->where("puppy_id", $id)->countAllResults();
-      }                                                                                                                    
-    }else {
-      $id = $data['data']->id;
-      if (!isset($data['data']->id)) 
-        return $data;
-      $data['data']->{"likes"} = model("LikeModel")->where("puppy_id", $id)->countAllResults();
-    }
-    return $data;
+		if(gettype($data["data"]) === "array"){
+		if (!isset($data['data'][0]->id)) 
+			return $data;
+		foreach($data["data"] as $key => $value){
+			$id = $data['data'][$key]->id;
+			$data['data'][$key]->{"likes"} = model("LikeModel")->where("puppy_id", $id)->countAllResults();
+		}                                                                                                                    
+		}else {
+		$id = $data['data']->id;
+		if (!isset($data['data']->id)) 
+			return $data;
+		$data['data']->{"likes"} = model("LikeModel")->where("puppy_id", $id)->countAllResults();
+		}
+		return $data;
+	}
+
+	protected function getViews(array $data){
+		if(gettype($data["data"]) === "array"){
+			if (!isset($data['data'][0]->id)) 
+				return $data;
+			foreach($data["data"] as $key => $value){
+				$id = $data['data'][$key]->id;
+				$data['data'][$key]->{"views"} = model("ViewModel")->where("puppy_id", $id)->countAllResults();
+			}                                                                                                                    
+		}else {
+			$id = $data['data']->id;
+			if (!isset($data['data']->id)) 
+				return $data;
+			$data['data']->{"views"} = model("ViewModel")->where("puppy_id", $id)->countAllResults();
+		}
+		return $data;
 	}
 	
 	protected function getComments(array $data){

@@ -16,8 +16,14 @@ class Puppies extends ResourceController
 	    $limit = $this->request->getVar("limit")  ?? 50;
 	  
       if ($this->request->getVar("order")!==null) {
-        $dir = $this->request->getVar("dir") ?? "ASC";
-        $this->model->orderBy($this->request->getVar("order"), $dir);
+        $orderBy = $this->request->getVar("order");
+        if ($orderBy === "views") {
+          $this->model->afterFind[] = 'getViews';
+        } else {
+          $dir = $this->request->getVar("dir") ?? "ASC";
+          $this->model->orderBy($this->request->getVar("order"), $dir);
+        }
+        
       }
       if ($this->request->getVar("comments") !== null) {
         $this->model->afterFind[] = 'getComments';
@@ -25,7 +31,16 @@ class Puppies extends ResourceController
       if ($this->request->getVar("likes") !== null) {
         $this->model->afterFind[] = 'getLikes';
       }
-      return $this->respond($this->model->findAll($limit, $offset));
+      $data = $this->model->findAll($limit, $offset);
+      if($this->request->getVar("order") === "views"){
+        usort($data, function($a, $b){
+          return $b->views - $a->views;
+        });
+        if(count($data)>4){
+          $data = array_slice($data, 0, 4);
+        }
+      }
+      return $this->respond($data);
     }
     
     public function show($id = null)

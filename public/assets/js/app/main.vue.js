@@ -12,18 +12,16 @@ let app = new Vue({
     }, 
     latest: null,
     last: null, 
-    user: {}
+    user: {},
+    mostViews: [],
   },
   
   beforeMount(){
       this.loadLatest();
+      this.loadMostViews();
       console.log(base_url)
       //this.getUser();
       //this.searchDB(20,0);
-  },
-  
-  computed:{
-    
   },
   
   methods: {
@@ -53,9 +51,29 @@ let app = new Vue({
         } 
       });
     }, 
+    loadMostViews(){
+      let options = {
+        limit: 194, 
+        order: "views", 
+        dir: "desc", 
+        views: "true", 
+      };
+      $.ajax({
+        url: base_url+"puppies", 
+        method: "GET",
+        data: options, 
+        success: (data)=>{
+          console.log(data);
+            this.mostViews = data;
+        },
+        error: (err)=>{
+          console.log(err);
+        } 
+      });
+    },
     getUser(){
       $.ajax({
-        url: `http://localhost:8080/app/user`, 
+        url: base_url+"app/user", 
         method: "GET",
         success: (res)=>{
           if (res.status) {
@@ -67,30 +85,6 @@ let app = new Vue({
         } 
       });
     }, 
-    
-    searchDB(limit, offset){
-      $("#form-search-btn").attr("data-kt-indicator", "on");
-      $.ajax({
-        url: "http://localhost:8080/search/clothes", 
-        method: "POST",
-        data: {"limit":limit, "offset":offset, "q":this.inputs.search}, 
-        success: (res)=>{
-          //console.log(res);
-          if (offset == 0) {
-            this.clothes = [];
-          }
-          this.search.result = res;
-          this.clothes.push(...res);
-        },
-        error: (err)=>{
-          console.log(err);
-        } 
-      }).always(()=>{
-        $("#form-search-btn").attr("data-kt-indicator", null);
-      });
-            
-    }, 
-    
   }
   // END OF DATA
 });                                                                                                                                        

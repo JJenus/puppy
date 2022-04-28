@@ -109,7 +109,9 @@
       <!-- Featured pets -->
       <section class="container mb-5 pt-lg-2 pt-xl-4 pb-2 pb-md-3 pb-lg-5">
         <h2 class="h1 mb-4 text-center">Latest Posts</h2>
-        <p class="mb-4 mx-auto pb-3 fs-lg text-center" style="max-width: 636px;">We create websites and mobile apps, marketing materials, branding, web design, UX/UI design and illustrations.</p>
+        <p class="mb-4 mx-auto pb-3 fs-lg text-center" style="max-width: 636px;">
+          Check out our latest posts on available pets.
+        </p>
         <div class="row">
           <div v-for="puppy in latest" class="col-md-6 mb-3">
             <div class="card">
@@ -125,234 +127,37 @@
           <a href="<?=base_url("app/puppies")?>" class="btn btn-lg btn-primary w-sm-auto w-100">Explore all</a>
         </div>
       </section>
-
-      <!-- Services -->
-      <section class="container mb-5 pb-2 pb-md-4 pb-lg-5">
-        <div class="card border-0 bg-secondary p-md-5 px-sm-2 pt-4 pb-3">
-          <div class="card-body mx-auto" style="max-width: 860px;">
-            <h2 class="h1 mb-4 text-center">Our Competencies</h2>
-            <p class="mb-4 pb-3 fs-lg text-center text-muted">We fully understand your business. If you need to update something, we are more than happy to help you with the services we are providing.</p>
-
-            <!-- Accordion: Alternative style -->
-            <div class="accordion" id="accordion-services">
-
-              <!-- Item -->
-              <div class="accordion-item border-0 rounded-3 shadow-sm mb-3">
-                <h3 class="accordion-header" id="heading-1">
-                  <button class="accordion-button fs-xl shadow-none rounded-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-1" aria-expanded="true" aria-controls="collapse-1">Digital Marketing</button>
-                </h3>
-                <div class="accordion-collapse collapse show" id="collapse-1" aria-labelledby="heading-1" data-bs-parent="#accordion-services">
-                  <div class="accordion-body pt-0">
-                    <div class="d-flex flex-md-row flex-column align-items-md-center">
-                      <img src="<?= base_url() ?>/assets/img/landing/digital-agency/services/01.png" width="200" alt="Digital Marketing" class="me-md-4 mb-md-0 mb-3">
-                      <div class="ps-md-3">
-                        <p class="mb-0">Nisi, sed accumsan tincidunt pulvinar sapien. Neque, adipiscing posuere amet eget cursus mattis egestas nec quam. Tellus in lectus volutpat tellus bibendum. Etiam id phasellus in proin tristique. Semper habitasse volutpat et urna dui sed in pellentesque purus. Convallis viverra faucibus lacus nunc venenatis.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Item -->
-              <div class="accordion-item border-0 rounded-3 shadow-sm mb-3">
-                <h3 class="accordion-header" id="heading-2">
-                  <button class="accordion-button fs-xl shadow-none rounded-3 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-2" aria-expanded="true" aria-controls="collapse-2">Web Development</button>
-                </h3>
-                <div class="accordion-collapse collapse" id="collapse-2" aria-labelledby="heading-2" data-bs-parent="#accordion-services">
-                  <div class="accordion-body pt-0">
-                    <div class="d-flex flex-md-row flex-column align-items-md-center">
-                      <img src="<?= base_url() ?>/assets/img/landing/digital-agency/services/02.png" width="200" alt="Web Development" class="me-md-4 mb-md-0 mb-3">
-                      <div class="ps-md-3">
-                        <p class="mb-0">Vitae varius euismod egestas egestas lacus. Augue vitae arcu sollicitudin metus iaculis amet, eu at amet. Netus pulvinar tristique ridiculus sed. Viverra ut viverra aenean nisl. Tortor lorem cum congue a. Orci mattis massa tortor magna massa nisi, aliquet risus. Ornare cras aenean pellentesque quam pulvinar at. Libero mollis tortor erat sed. Adipiscing lectus nisi commodo vel. Id augue vitae, hendrerit iaculis.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Item -->
-              <div class="accordion-item border-0 rounded-3 shadow-sm mb-3">
-                <h3 class="accordion-header" id="heading-3">
-                  <button class="accordion-button fs-xl shadow-none rounded-3 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-3" aria-expanded="true" aria-controls="collapse-3">Application Development</button>
-                </h3>
-                <div class="accordion-collapse collapse" id="collapse-3" aria-labelledby="heading-3" data-bs-parent="#accordion-services">
-                  <div class="accordion-body pt-0">
-                    <div class="d-flex flex-md-row flex-column align-items-md-center">
-                      <img src="<?= base_url() ?>/assets/img/landing/digital-agency/services/03.png" width="200" alt="Application Development" class="me-md-4 mb-md-0 mb-3">
-                      <div class="ps-md-3">
-                        <p class="mb-0">Morbi tristique justo, ut ac facilisi vel. Faucibus tortor libero commodo maecenas commodo sed. Sapien, vitae senectus turpis enim habitasse ipsum justo. Sagittis vel tortor velit dapibus dictum facilisis dictumst aliquam. Et, tempus euismod non semper vitae egestas semper eget turpis. Eros, pellentesque sed ut faucibus ac egestas leo metus.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Item -->
-              <div class="accordion-item border-0 rounded-3 shadow-sm mb-3">
-                <h3 class="accordion-header" id="heading-4">
-                  <button class="accordion-button fs-xl shadow-none rounded-3 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-4" aria-expanded="true" aria-controls="collapse-4">Strategy</button>
-                </h3>
-                <div class="accordion-collapse collapse" id="collapse-4" aria-labelledby="heading-4" data-bs-parent="#accordion-services">
-                  <div class="accordion-body pt-0">
-                    <div class="d-flex flex-md-row flex-column align-items-md-center">
-                      <img src="<?= base_url() ?>/assets/img/landing/digital-agency/services/04.png" width="200" alt="Strategy" class="me-md-4 mb-md-0 mb-3">
-                      <div class="ps-md-3">
-                        <p class="mb-0">Non bibendum mauris velit at enim. Vel tellus nunc malesuada pellentesque feugiat nibh mauris blandit. Tempus, ut vulputate feugiat quis molestie sit eu blandit rhoncus. Iaculis eget magna sit eget eget massa. Diam nunc dolor tristique lectus imperdiet. Nunc, vitae etiam venenatis arcu turpis sollicitudin amet sit. Ac dapibus non erat sed. Auctor eleifend mattis scelerisque gravida felis nibh. Habitant nascetur turpis ullamcorper.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Item -->
-              <div class="accordion-item border-0 rounded-3 shadow-sm mb-3">
-                <h3 class="accordion-header" id="heading-5">
-                  <button class="accordion-button fs-xl shadow-none rounded-3 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-5" aria-expanded="true" aria-controls="collapse-5">Digital Advertising</button>
-                </h3>
-                <div class="accordion-collapse collapse" id="collapse-5" aria-labelledby="heading-5" data-bs-parent="#accordion-services">
-                  <div class="accordion-body pt-0">
-                    <div class="d-flex flex-md-row flex-column align-items-md-center">
-                      <img src="<?= base_url() ?>/assets/img/landing/digital-agency/services/05.png" width="200" alt="Digital Advertising" class="me-md-4 mb-md-0 mb-3">
-                      <div class="ps-md-3">
-                        <p class="mb-0">Nulla odio diam, arcu dictum neque nec cursus. Vel, aliquam nisl ridiculus sed. Pulvinar lectus ac pellentesque sollicitudin tristique aliquet ullamcorper in eu. Tincidunt porta magna faucibus neque, nunc gravida sagittis. Ut tellus sed odio laoreet. Molestie sit viverra maecenas nisl felis consequat.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>    
-
   
       <div class="bg-secondary mb-5 pt-5">
 
         <!-- Most viewed -->
         <section class="container mb-5 py-lg-5">
           <h2 class="h1 mb-4 pb-3 text-center">Most Viewed</h2>
-          <div class="row">
-            <div class="col-lg-5 col-12 mb-lg-0 mb-4">
-
-              <!-- Article -->
-              <article class="card h-100 border-0 shadow-sm">
+          <div class="row justify-content-center">
+            <div v-for="puppy in mostViews" class="col-lg-5 col-12 mb-lg-0 mb-5">
+              <div class="card h-100 border-0 shadow-sm">
                 <div class="position-relative">
-                  <a href="blog-single.html" class="position-absolute top-0 start-0 w-100 h-100" aria-label="Read more"></a>
+                  <a href="#" class="position-absolute top-0 start-0 w-100 h-100" aria-label="Read more"></a>
                   <a href="#" class="btn btn-icon btn-light bg-white border-white btn-sm rounded-circle position-absolute top-0 end-0 zindex-5 me-3 mt-3" data-bs-toggle="tooltip" data-bs-placement="left" title="Read later">
-                    <i class="bx bx-bookmark"></i>
+                    <i class="bx bx-heart"></i>
                   </a>
-                  <img src="<?= base_url() ?>/assets/img/landing/digital-agency/blog/01.jpg" class="card-img-top" alt="Image">
+                  <img :src="img(puppy.media)" class="card-img-top" alt="Image">
                 </div>
                 <div class="card-body pb-4">
                   <div class="d-flex align-items-center justify-content-between mb-3">
                     <a href="#" class="badge fs-sm text-nav bg-secondary text-decoration-none">Digital</a>
-                    <span class="fs-sm text-muted">12 hours ago</span>
+                    <span class="fs-sm text-muted">{{puppy.views}} views</span>
                   </div>
                   <h3 class="h5 mb-0">
-                    <a href="blog-single.html">A study on smartwatch design qualities and people’s preferences</a>
+                    <a href="#">{{puppy.description}}</a>
                   </h3>
                 </div>
                 
-              </article>
+              </div>
             </div>
-            <div class="col">
 
-              <!-- Article -->
-              <article class="card border-0 shadow-sm overflow-hidden mb-4">
-                <div class="row g-0">
-                  <div class="col-sm-5 position-relative bg-position-center bg-repeat-0 bg-size-cover" style="background-image: url(<?= base_url() ?>/assets/img/landing/digital-agency/blog/02.jpg); min-height: 15rem;">
-                    <a href="blog-single.html" class="position-absolute top-0 start-0 w-100 h-100" aria-label="Read more"></a>
-                    <a href="#" class="btn btn-icon btn-light bg-white border-white btn-sm rounded-circle position-absolute top-0 end-0 zindex-5 me-3 mt-3" data-bs-toggle="tooltip" data-bs-placement="left" title="Read later">
-                      <i class="bx bx-bookmark"></i>
-                    </a>
-                  </div>
-                  <div class="col-sm-7">
-                    <div class="card-body">
-                      <div class="d-flex align-items-center mb-3">
-                        <a href="#" class="badge fs-sm text-nav bg-secondary text-decoration-none">Design</a>
-                        <span class="fs-sm text-muted border-start ps-3 ms-3">1 day ago</span>
-                      </div>
-                      <h3 class="h5">
-                        <a href="blog-single.html">Brand analysis: second step to the brand identity</a>
-                      </h3>
-                      <hr class="my-4">
-                      <div class="d-flex flex-sm-nowrap flex-wrap align-items-center justify-content-between">
-                        <div class="d-flex align-items-center position-relative me-3">
-                          <img src="<?= base_url() ?>/assets/img/avatar/08.jpg" class="rounded-circle me-3" width="48" alt="Avatar">
-                          <div>
-                            <a href="#" class="nav-link p-0 fw-bold text-decoration-none stretched-link">Annette Black</a>
-                            <span class="fs-sm text-muted">Product Manager</span>
-                          </div>
-                        </div>
-                        <div class="d-flex align-items-center mt-sm-0 mt-4 text-muted">
-                          <div class="d-flex align-items-center me-3">
-                            <i class="bx bx-like fs-lg me-1"></i>
-                            <span class="fs-sm">8</span>
-                          </div>
-                          <div class="d-flex align-items-center me-3">
-                            <i class="bx bx-comment fs-lg me-1"></i>
-                            <span class="fs-sm">7</span>
-                          </div>
-                          <div class="d-flex align-items-center">
-                            <i class="bx bx-share-alt fs-lg me-1"></i>
-                            <span class="fs-sm">4</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </article>
-
-              <!-- Article -->
-              <article class="card border-0 shadow-sm overflow-hidden">
-                <div class="row g-0">
-                  <div class="col-sm-5 position-relative bg-position-center bg-repeat-0 bg-size-cover" style="background-image: url(<?= base_url() ?>/assets/img/landing/digital-agency/blog/03.jpg); min-height: 15rem;">
-                    <a href="blog-single.html" class="position-absolute top-0 start-0 w-100 h-100" aria-label="Read more"></a>
-                    <a href="#" class="btn btn-icon btn-light bg-white border-white btn-sm rounded-circle position-absolute top-0 end-0 zindex-5 me-3 mt-3" data-bs-toggle="tooltip" data-bs-placement="left" title="Read later">
-                      <i class="bx bx-bookmark"></i>
-                    </a>
-                  </div>
-                  <div class="col-sm-7">
-                    <div class="card-body">
-                      <div class="d-flex align-items-center mb-3">
-                        <a href="#" class="badge fs-sm text-nav bg-secondary text-decoration-none">Tips &amp; Advice</a>
-                        <span class="fs-sm text-muted border-start ps-3 ms-3">May 24, 2021</span>
-                      </div>
-                      <h3 class="h5">
-                        <a href="blog-single.html">How to check the website before releasing it?</a>
-                      </h3>
-                      <hr class="my-4">
-                      <div class="d-flex flex-sm-nowrap flex-wrap align-items-center justify-content-between">
-                        <div class="d-flex align-items-center position-relative me-3">
-                          <img src="<?= base_url() ?>/assets/img/avatar/09.jpg" class="rounded-circle me-3" width="48" alt="Avatar">
-                          <div>
-                            <a href="#" class="nav-link p-0 fw-bold text-decoration-none stretched-link">Marvin McKinney</a>
-                            <span class="fs-sm text-muted">Senior UI/UX Designer</span>
-                          </div>
-                        </div>
-                        <div class="d-flex align-items-center mt-sm-0 mt-4 text-muted">
-                          <div class="d-flex align-items-center me-3">
-                            <i class="bx bx-like fs-lg me-1"></i>
-                            <span class="fs-sm">8</span>
-                          </div>
-                          <div class="d-flex align-items-center me-3">
-                            <i class="bx bx-comment fs-lg me-1"></i>
-                            <span class="fs-sm">7</span>
-                          </div>
-                          <div class="d-flex align-items-center">
-                            <i class="bx bx-share-alt fs-lg me-1"></i>
-                            <span class="fs-sm">4</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </article>
-            </div>
             <div class="col-12 mt-4 pt-lg-4 pt-3 text-center">
-              <a href="blog-grid-no-sidebar.html" class="btn btn-lg btn-outline-primary w-sm-auto w-100">More blog posts</a>
+              <a href="<?=base_url("app/puppies?orderby=views&sort=desc")?>" class="btn btn-lg btn-outline-primary w-sm-auto w-100">View More</a>
             </div>
           </div>
         </section>

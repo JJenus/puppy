@@ -23,6 +23,7 @@
     <meta name="theme-color" content="#ffffff">
     <script src="<?= base_url() ?>/node_modules/eruda/eruda.js"></script>
 		<script type="text/javascript" charset="utf-8">
+      var base_url = "<?= base_url() ?>/";
 		  eruda.init();
 		</script> 
     <!-- Vendor Styles -->
