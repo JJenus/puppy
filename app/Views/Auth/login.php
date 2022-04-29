@@ -12,15 +12,22 @@
         <div class="container d-flex flex-wrap justify-content-center justify-content-xl-start h-100 pt-5">
           <div class="w-100 align-self-end p-5 pt-1 pt-md-4 pb-4" style="max-width: 566px;">
             <h1 class="text-center text-xl-start">Welcome Back</h1>
-            <p class="text-center text-xl-start pb-3 mb-3">Don’t have an account yet? <a href="account-signup.html">Register here.</a></p>
-            <?php if (session()->has('errors')) : ?>
-              	<ul class="alert m-4 alert-danger">
-              	<?php foreach (session('errors') as $error) : ?>
-              		<li><?= $error ?></li>
-              	<?php endforeach ?>
-              	</ul>
+            <p class="text-center text-xl-start pb-3 mb-3">Don’t have an account yet? <a href="<?= base_url('register') ?>">Register here.</a></p>
+            
+            <form method="post" action="<?= route_to('login') ?>" class="needs-validation mb-2" novalidate>
+              <?= csrf_field() ?>
+              <?php if (session()->has('errors')) : ?>
+                <ul class="alert m-4 alert-danger">
+                <?php foreach (session('errors') as $error) : ?>
+                  <li><?= $error ?></li>
+                <?php endforeach ?>
+                </ul>
               <?php endif ?>
-            <form method="post" action="login" class="needs-validation mb-2" novalidate>
+              <?php if (session()->has('error')) : ?>
+                <div class="alert alert-danger">
+                  <?= session('error') ?>
+                </div>
+              <?php endif ?>
               <div class="position-relative mb-4">
                 <label for="login" class="form-label fs-base">Email</label>
                 <input name="login" type="text" value="<?=old('login')?>"  id="email" class="form-control form-control-lg" required>

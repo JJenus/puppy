@@ -208,16 +208,16 @@ class AuthController extends Controller
 		// Validate here first, since some things,
 		// like the password, can only be validated properly here.
 		$rules = [
-			'username'  	=> 'required|alpha_numeric_space|min_length[3]|is_unique[users.username]',
+			'name' 			=> 'required',
 			'email'			=> 'required|valid_email|is_unique[users.email]',
 			'password'	 	=> 'required',
-			#'pass_confirm' 	=> 'required|matches[password]',
+			'pass_confirm' 	=> 'required|matches[password]',
 		];
 		
 
 		if (! $this->validate($rules))
 		{
-		  return $this->response->setJson(["errors"=> service('validation')->getErrors()]);
+			return redirect()->back()->withInput()->with('errors', service('validation')->getErrors());
 		}
 
 		// Save the user
@@ -227,14 +227,13 @@ class AuthController extends Controller
 		$this->config->requireActivation !== false ? $user->generateActivateHash() : $user->activate();
 
 		// Ensure default group gets assigned if set
-        $this->config->defaultUserGroup = $this->request->getPost("role");
         if (! empty($this->config->defaultUserGroup)) {
             $users = $users->withGroup($this->config->defaultUserGroup);
         }
 
 		if (! $users->save($user))
 		{
-			return  $this->response->setJson(["errors"=> $users->errors()]);
+			return redirect()->back()->withInput()->with('errors', $users->errors());
 		}
 
 		if ($this->config->requireActivation !== false)
@@ -244,15 +243,15 @@ class AuthController extends Controller
 
 			if (! $sent)
 			{
-				return $this->response->setJson(["errors"=> $activator->error() ?? lang('Auth.unknownError')]);
+				return redirect()->back()->withInput()->with('error', $activator->error() ?? lang('Auth.unknownError'));
 			}
 
 			// Success!
-			return $this->response->setJson(["message"=> lang('Auth.activationSuccess')]);
+			return redirect()->route('login')->with('message', lang('Auth.activationSuccess'));
 		}
 
 		// Success!
-		return $this->response->setJson(["message"=> lang('Auth.registerSuccess')]);
+		return redirect()->route('login')->with('message', lang('Auth.registerSuccess'));
 	}
 
 	//--------------------------------------------------------------------
