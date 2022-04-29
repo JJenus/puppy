@@ -15,7 +15,7 @@ class Puppies extends ResourceController
       $offset = $this->request->getVar("offset") ?? 0;
 	    $limit = $this->request->getVar("limit")  ?? 50;
 	  
-      if ($this->request->getVar("order")!==null) {
+      if ($this->request->getVar("order") !== null) {
         $orderBy = $this->request->getVar("order");
         if ($orderBy === "views") {
           $this->model->afterFind[] = 'getViews';

@@ -36,7 +36,7 @@
 
 
         <!-- Blog grid + Sidebar -->
-        <div class="row">
+        <div class="row justify-content-center">
           <div class="col-xl-9 col-lg-8">
             <div class="pe-xl-5">
               <div v-if="puppies" class="masuonry-grid row row-cols-sm-2 row-cols-1 g-4">
@@ -55,7 +55,6 @@
               </button>
             </div>
           </div>
-
 
           <!-- Sidebar (Offcanvas below lg breakpoint) -->
           <aside class="col-xl-3 col-lg-4 d-none">

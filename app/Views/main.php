@@ -1,8 +1,7 @@
   <?= $this->extend($config->viewLayout) ?>
   
   <?= $this->section('pageScripts') ?>
-  <script src="<?= base_url() ?>/assets/vendor/lightgallery.js/dist/js/lightgallery.min.js"/>
-
+    <script src="<?= base_url() ?>/assets/vendor/lightgallery.js/dist/js/lightgallery.min.js"/>
     <script src="<?= base_url("assets/vendor/jarallax/dist/jarallax.min.js") ?>" ></script>
     <script src="<?= base_url("assets/vendor/jarallax/dist/jarallax-element.min.js") ?>"></script>
     <script src="<?= base_url("assets/vendor/%40lottiefiles/lottie-player/dist/lottie-player.js") ?>"></script>
@@ -32,7 +31,7 @@
                   We give you <span class="text-gradient-primary">the best</span> of pets
                 </h1>
                 <div class="d-md-flex align-items-md-start">
-                  <a href="contacts-v1.html" class="btn btn-lg btn-primary flex-shrink-0 me-md-4 mb-md-0 mb-sm-4 mb-3">Work with us</a>
+                  <a href="contact" class="btn btn-lg btn-primary flex-shrink-0 me-md-4 mb-md-0 mb-sm-4 mb-3">Work with us</a>
                   <p class="d-lg-block d-none mb-0 ps-md-3"><?=APP_NAME?> is a leading full-service digital pet shop based in Lagos. We'll bring your pet to your doorstep.</p>
                 </div>
               </div>
@@ -168,9 +167,9 @@
             <div class="card-body p-md-5 p-4 bg-size-cover" style="background-image: url(<?= base_url() ?>/assets/img/landing/digital-agency/contact-bg.png);">
               <div class="py-md-5 py-4 text-center">
                 <h3 class="h4 fw-normal text-light opacity-75">Contact us? Let’s talk</h3>
-                <a href="mailto:email@example.com" class="display-6 text-light">info@<?=APP_NAME?>.com</a>
+                <a href="mailto:info@<?=APP_NAME?>.com" class="display-6 text-light">info@<?=APP_NAME?>.com</a>
                 <div class="pt-md-5 pt-4 pb-md-2">
-                  <a href="contacts-v1.html" class="btn btn-lg btn-light">Contact us</a>
+                  <a href="contact" class="btn btn-lg btn-light">Contact us</a>
                 </div>
               </div>
             </div>
