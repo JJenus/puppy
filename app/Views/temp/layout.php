@@ -28,7 +28,7 @@
     <script src="<?= base_url() ?>/assets/js/vue.min.js"></script>
     <script src="<?= base_url() ?>/assets/js/moment.js"></script>
     <script src="<?= base_url() ?>/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="<?= base_url() ?>/assets/vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+    <script src="<?= base_url("assets/vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js") ?>"></script>
     <!-- Main Theme Script -->
     <script type="text/javascript" charset="utf-8">
       

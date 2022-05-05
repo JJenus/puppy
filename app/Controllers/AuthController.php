@@ -99,9 +99,8 @@ class AuthController extends Controller
 			return redirect()->to(route_to('reset-password') .'?token='. $this->auth->user()->reset_hash)->withCookies();
 		}
 		$userId = $this->auth->id();
-		$url = ($this->authorize->inGroup("admin", $userId) || $this->authorize->hasPermission("app.manage", $userId) ) ? route_to("app/dashboard"):
-		       ($this->hasPermissions($userId)? route_to("app/main") : route_to("app/laundry"));
-		#$redirectURL = session('redirect_url') ?? $url ?? '/';
+		$url = $this->authorize->inGroup("admin", $userId) ? route_to("app/dashboard/") : route_to("app/user/collections");
+		//$redirectURL = session('redirect_url') ?? $url ?? '/';
 		$redirectURL = $url ?? '/';
 		unset($_SESSION['redirect_url']);
 		

@@ -38,7 +38,7 @@ class App extends BaseController
     return view("puppy", $this->data);     
   }
   
-  public function user(){
+  public function userData(){
 	  $user = $this->authenticate->user();
 	  $data = [
 	    "name" => $user->name, 
@@ -54,6 +54,7 @@ class App extends BaseController
 	} 
 	
 	public function dashboard($page=null){
+	  $this->data["page"] = $page;
 	  if (!$page) {
 	    return view ("dashboard/overview", $this->data);
 	  }
@@ -63,6 +64,23 @@ class App extends BaseController
         throw new \CodeIgniter\Exceptions\PageNotFoundException($page);
     }
 	  return view ("dashboard/".$page, $this->data);
+	} 
+	
+	public function user($page="collections"){
+	  if (!$this->auth->check())
+		{
+			return redirect()->to(route_to("login"));
+		}
+	  $this->data["page"] = $page;
+	  if (!$page) {
+	    return view ("user/details", $this->data);
+	  }
+	  
+	  if ( ! is_file(APPPATH.'/Views/user/'. $page. '.php')){
+        // Whoops, we don't have a page for that!
+        throw new \CodeIgniter\Exceptions\PageNotFoundException($page);
+    }
+	  return view ("user/".$page, $this->data);
 	} 
 
 }

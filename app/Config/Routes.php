@@ -40,14 +40,16 @@ $routes->group("app", function($app){
   $app->get('puppies', 'App::puppies');
   $app->get('puppies/(:num)', "App::showPuppy/$1");
   $app->get('trial', 'App::trials');
-  $app->get('user', 'App::user');
-  $app->group("hire", ['filter' => 'role:admin,manager'], function($hire){
-    $hire->get('generateId', 'AuthController::generateId');
-    $hire->get('checkAvailability', 'AuthController::checkAvailability');
+  $app->get('user-data', 'App::userData');
+  
+  $app->group("user", ['filter' => 'role:admin'], function($user){
+    $user->addRedirect("/", "app/user/collections");
+    $user->get("/(:segment)", "App::user/$1");
   });
+  
   $app->group("dashboard", ['filter' => 'role:admin,manager'], function($dashboard){
-    $dashboard->addRedirect("/", "app/dashboard/overview");
-    $dashboard->get("(:any)", "App::dashboard/$1");
+    $dashboard->addRedirect("/", "app/dashboard/collections");
+    $dashboard->get("(:segment)", "App::dashboard/$1");
   });
 });
 

@@ -12,7 +12,7 @@ class Auth extends \Myth\Auth\Config\Auth
     //
     // i.e. $defaultUserGroup = 'guests';
     //
-    public $defaultUserGroup;
+    public $defaultUserGroup = "user";
 
     //--------------------------------------------------------------------
     // Libraries
@@ -132,7 +132,7 @@ class Auth extends \Myth\Auth\Config\Auth
     // you might not want the extra risk associated with this cookie-based
     // solution.
     //
-    public $allowRemembering = false;
+    public $allowRemembering = true;
 
     //--------------------------------------------------------------------
     // Remember Length
@@ -140,7 +140,7 @@ class Auth extends \Myth\Auth\Config\Auth
     // The amount of time, in seconds, that you want a login to last for.
     // Defaults to 30 days.
     //
-    public $rememberLength = 30 * DAY;
+    public $rememberLength = 1 * DAY;
 
     //--------------------------------------------------------------------
     // Error handling
@@ -225,8 +225,8 @@ class Auth extends \Myth\Auth\Config\Auth
     //
     public $userActivators = [
         'Myth\Auth\Authentication\Activators\EmailActivator' => [
-            'fromEmail' => 'laundry@gmail.com',
-            'fromName' => 'Laundry',
+            'fromEmail' => 'info@puppy.com',
+            'fromName' => 'Puppy',
         ],
     ];
 
@@ -237,8 +237,8 @@ class Auth extends \Myth\Auth\Config\Auth
     //
     public $userResetters = [
         'Myth\Auth\Authentication\Resetters\EmailResetter' => [
-            'fromEmail' => 'laundry@gmail.comi',
-            'fromName' => 'laundry',
+            'fromEmail' => 'info@puppy.com',
+            'fromName' => 'Puppy',
         ],
     ];
 
